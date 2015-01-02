@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  width: 1000px;
+  font: 11px sans-serif;
+}
+
+svg {
+  padding: 20px 0 0 10px;
+}
+
+.legend {
+  font-size: 9px;
+}
+
+.header {
+  background: #F8E1E1;
+  color: rgb(48, 44, 44);
+  width: 986px;
+  padding: 4px 0px;
+  margin: -4px 6px -15px 0;
+}
+
+.title {
+  font-size: 20px;
+  color: grey;
+  padding: 0 0 10px 10px;
+}
+
+.arc {
+  stroke: #fff;
+}
+
+.daily-info {
+  color:red;
+}
+
+ul {
+  list-style-type:none;
+  margin:0 0 0 50px;
+  padding:0;
+  overflow:hidden;
+}
+li {
+  float: left;
+  font-size: 19px;
+}
+
+</style>
+
+<head>
+  <title>pa5</title>
+</head>
+
+<body>
+<div class="title">
+June 2012
+</div>
+<div class="header">
+<ul>
+  <li>Mon</li>
+  <li style="padding: 0 100px;">Tues</li>
+  <li>Wed</li>
+  <li style="padding: 0 100px;">Thurs</li>
+  <li>Fri</li>
+  <li style="padding: 0 111px;">Sat</li>
+  <li>Sun</li>
+</ul>
+</div>
+
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+
+var radius = 65,
+    padding = 20;
+
+var color = d3.scale.ordinal()
+    .range(["#0269F7", "#64A3FA", "#CCE0FC", "#F8C8C8", "#FF6969", "#FF1B1B"]);
+
+var arc = d3.svg.arc()
+    .outerRadius(radius)
+    .innerRadius(radius - 30);
+
+var pie = d3.layout.pie()
+    .sort(null)
+    .value(function(d) { return d.population; });
+
+d3.csv("PA5data.csv", function(error, data) {
+  color.domain(d3.keys(data[0]).filter(function(key) { return key !== "User"; }));
+
+  data.forEach(function(d) {
+    d.ages = color.domain().map(function(name) {
+      return {name: name, population: +d[name]};
+    });
+  });
+
+  var legend = d3.select("body").append("svg")
+      .attr("class", "legend")
+      .attr("width", radius * 2)
+      .attr("height", radius * 2)
+    .selectAll("g")
+      .data(color.domain().slice().reverse())
+    .enter().append("g")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+  legend.append("rect")
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("fill", color);
+
+  legend.append("text")
+      .attr("x", 24)
+      .attr("y", 9)
+      .attr("dy", ".35em")
+      .text(function(d) { return d; });
+
+  var svg = d3.select("body").selectAll(".pie")
+      .data(data)
+    .enter().append("svg")
+      .attr("class", "pie")
+      .attr("width", radius * 2)
+      .attr("height", radius * 2)
+    .append("g")
+      .attr("transform", "translate(" + radius + "," + radius + ")");
+
+  var arcs = svg.selectAll(".arc")
+      .data(function(d) { return pie(d.ages); })
+    .enter().append("path")
+      .attr("class", "arc")
+      .attr("d", arc)
+      .style("fill", function(d) { return color(d.data.name); })
+      .append("svg:title")
+      .text(function(d) { return d.data.population; });
+
+/*
+  arcs.append("text")
+        .attr("transform", function(d){ return "translate(" + arc.centroid(d) + ")"; })
+        .attr("dy", ".35em")
+        .style("text-anchor", "middle")
+        .text(function(d) {
+          console.log(d.data.name);
+          console.log(d.data.population);
+          return d.data.population;
+        });
+
+  arcs.append("svg:text")
+      .attr("transform", function(d, i) { //set the label's origin to the center of the arc
+        var c = arc.centroid(d);
+        return "translate(" + (76/2 + c[0]) + "," + (76/2 + c[1]) + ")";})
+      .attr("dy", ".35em")
+      .style("text-anchor", "middle")
+      .text(function(d) {
+          return d.data.population;
+      });
+
+  */
+
+  svg.append("text")
+      .attr("dy", ".35em")
+      .style("text-anchor", "middle")
+      .text(function(d) { return d.User; });
+
+});
+
+</script>

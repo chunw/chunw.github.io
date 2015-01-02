@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.link {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px;
+}
+#in {
+  fill: green;
+}
+.link.in {
+  stroke: green;
+}
+.link.out {
+  stroke: red;
+}
+.link.resolved {
+  stroke-dasharray: 0,2 1;
+}
+
+circle {
+  fill: #ccc;
+  stroke: #333;
+  stroke-width: 1.5px;
+}
+
+text {
+  font: 10px sans-serif;
+  pointer-events: none;
+  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+}
+
+#tweetbox{
+  min-height: 130px;
+  display: block;
+  padding: 0 20px 0 20px;
+  background-color: #FFFAD2;
+  border: 1px solid #ffd700;
+}
+
+#tweetbox p{
+  font-family: 'Open Sans',"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 13px;
+  font-style:italic;
+  line-height: 15px;
+}
+#tweet1 {
+  color: rgb(240, 9, 9);
+}
+#tweet2 {
+  color: rgb(67, 146, 5);
+  text-align:right;
+}
+#instructions {
+  float: right;
+  width: 270px;
+  height: 400px;
+  margin-top: -490px;
+  margin-right: 70px;
+  font-family: 'Open Sans',"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 13px;
+  line-height: 15px;
+  color:grey;
+}
+#instructions h5 {
+  font-style: italic;
+  font-size: 15px;
+  line-height: 18px;
+}
+#instructions h6 {
+  font-size: 13px;
+  color:grey;
+  margin-bottom: -10px;
+}
+</style>
+<body>
+<div id="tweetbox">
+  <p id="tweet1"> This user retweets Larry: </p>
+  <p id="tweet2"> Larry retweets this user: </p>
+</div>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+
+var links =
+[
+  {
+    "source":"Larry Sabato",
+    "target":"Alex Burns",
+    "text":"RT @aburnspolitico: HINT RT @LarrySabato: \"It is more honorable to repair a wrong than to persist in it.\" ~Th Jefferson<br>RT @aburnspolitico: But there are only \"win\" and \"loss\" boxes for me to check on my OBAMA VS. ROBERTS: SCOTUS-AGEDDON 2012 scorecard #ar ...<br>RT @aburnspolitico: Hard to say what I am looking forward to more: vote on UVA presidency this afternoon or ACA ruling Thursday cc @larr ...",
+    "type":"in",
+    "value":10
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"Andy Jenks",
+    "text":"RT @AndyJenksNBC12: The sea of humanity earlier today at #UVA. We should play \"Where's @LarrySabato?\" http://t.co/IR924aJw",
+    "type":"in",
+    "value":3
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"Anita Kumar",
+    "text":"RT @anitakumar01: The UVa Board of Visitors, criticized across the nation for lack of transparency, is meeting behind closed doors at mi ...",
+    "type":"in",
+    "value":3
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"Carl Cannon",
+    "text":"RT @CarlCannon: @chucktodd @LarrySabato Woodrow Wilson is actually the first academic I know who voiced that sentiment--while at Princeton.",
+    "type":"in",
+    "value":3
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"Chuck Todd",
+    "text":"RT @chucktodd: @LarrySabato what's the adage about academia politics and how it's more vicious than what we cover?",
+    "type":"in",
+    "value":3
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"David M. Drucker",
+    "text":"RT @DavidMDrucker: If #SCOTUS upholds #HCR,will grassroots conservatives demand immediate action frm House Republicans,or be content to  ...",
+    "type":"in",
+    "value":3
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"David Taintor",
+    "text":"RT @davidtaint: POLITICO Suspends Reporter For Incendiary Romney Remarks http://t.co/2bbrwIlp via @TPM",
+    "type":"in",
+    "value":3
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"Delegate Bob Brink",
+    "text":"RT @delbrink: @LarrySabato Ripping off JFK's comment about DC, but appropriate :-)",
+    "type":"in",
+    "value":3
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"FrMike",
+    "text":"RT @FrMike: RT @LarrySabato: \"It is more honorable to repair a wrong than to persist in it.\" ~Th Jefferson Congrats @uva of making this  ...",
+    "type":"in",
+    "value":3
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"Geoffrey Skelley",
+    "text":"RT @geoffreyvs: Apparently, Eric Holder was a little too #fastandfurious for the House Oversight &amp; Gov. Reform Committee. http://t.c ...",
+    "type":"in",
+    "value":3
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"James Kotecki",
+    "text":"RT @JamesKotecki: Counting down the Top 5 WORST Campaign Theme Songs of All Time - http://t.co/4H3q07DF via The @Daily",
+    "type":"in",
+    "value":3
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"Jay Rosen ",
+    "text":"RT @jayrosen_nyu: I had a conversation tonight with a member of the Iowa Board of Regents (University of Iowa) about #UVA. He was astoun ...",
+    "type":"in",
+    "value":3
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"Jeffrey Toobin",
+    "text":"RT @JeffreyToobin: Angry scalia dissent to kennedy opinion on az sb 1070. Scalia makes harsh attack on obama dream act order at #scotus.<br>RT @JeffreyToobin: Angry scalia dissent to kennedy opinion on az sb 1070. Scalia makes harsh attack on obama dream act order at #scotus.",
+    "type":"in",
+    "value":6
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"Jennifer McClellan",
+    "text":"RT @JennMcClellanVA: @LarrySabato Code of VA says #BOV is  subject to the control of the General Assembly<br>RT @JennMcClellanVA: @LarrySabato Code of VA says #BOV is  subject to the control of the General Assembly",
+    "type":"in",
+    "value":6
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"Joseph Figueroa",
+    "text":"RT @jaldenfig: VA Code �_ 23-69 states that #UVA Board of Visitors shall at all times be subject to control of the General Assembly #writ ...",
+    "type":"in",
+    "value":3
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"Joseph Taylor",
+    "text":"RT @Joseph_Taylor: @LarrySabato Sad to say but I'm starting to rethink applying to UVa for grad school now.",
+    "type":"in",
+    "value":3
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"Kyle Kondik",
+    "text":"RT @kkondik: #FF to my next two followers, who will get me to 1,000",
+    "type":"in",
+    "value":3
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"maggie haberman",
+    "text":"RT @maggiepolitico: Romney statement on AZ law crystallizes point of @jmartpolitico &amp; @aburnspolitico piece, he sees not taking clea ...",
+    "type":"in",
+    "value":3
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"makowrites",
+    "text":"RT @makowrites: @LarrySabato  remember these?? Relic from your class ca 1995 http://t.co/yczxQ8nR",
+    "type":"in",
+    "value":3
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"Mary Dunleavy NBC 29",
+    "text":"RT @MaryDunleavy29: About 1800 crowd at #UVA rally for honor #Sullivan http://t.co/I6kVMMNo",
+    "type":"in",
+    "value":3
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"Robert DuPree",
+    "text":"RT @RFDuPree: @LarrySabato Maybe BOV's newly retained high-price PR/image firm gets paid by the hour to put lipstick on the pig.",
+    "type":"in",
+    "value":3
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"Ryan Hughes",
+    "text":"RT @LeftCoastRyan: @LarrySabato: How does tonight compare to the standoff between students and President Shannon? #UVA #Sullivan",
+    "type":"in",
+    "value":3
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"Ryan Nobles",
+    "text":"RT @ryanobles: .@LarrySabato has some heavy hitters in #RVA today for a discussion on 2012. Must attend for politics junkies &amp; free! ...",
+    "type":"in",
+    "value":3
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"Stay Puft",
+    "text":"RT @StayPuft: Ghostbusters 3: Revenge of Stay Puft. This time I even the s'more.",
+    "type":"in",
+    "value":3
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"Stay Puft",
+    "text":"RT @StayPuft: Tonight's forecast: Cloudy with a chance of marshmallows.",
+    "type":"in",
+    "value":3
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"The Cavalier Daily",
+    "text":"RT @cavalierdaily: BREAKING: Dragas answers Gov.'s statement. \"[W]e alone are appointed to make these decisions on behalf of [#UVA]\" Rea �<br>RT @cavalierdaily: BREAKING: Dragas answers Gov.'s statement. \"[W]e alone are appointed to make these decisions on behalf of [#UVA]\" Rea ...<br>RT @cavalierdaily: Darden Dean @Bob_Bruner responds to @WSJ #UVA editorial http://t.co/5XQFaXb4",
+    "type":"in",
+    "value":10
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"The Daily Progress",
+    "text":"RT @DailyProgress: Damning statement from a former #UVA #BOV member: http://t.co/x1iFIrAS",
+    "type":"in",
+    "value":3
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"The Hook newspaper",
+    "text":"RT @readthehook: UVA's favorite Lawnie (sorry @LarrySabato) &amp; recent grad speaker @katiecouric lauds @cavalierdaily and faults firin ...",
+    "type":"in",
+    "value":3
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"Thomas Jefferson",
+    "text":"RT @MrJefferson_UVa: Meet me at The Virginian, #OpenBar for President #Sullivan on me. #UVA #WAHOOWA!",
+    "type":"in",
+    "value":3
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"Tiki Barber",
+    "text":"RT @Barber_Tiki: @LarrySabato: and a PR firm was hired to handle the fallout, yet somehow, even when they speak, they get it wrong.",
+    "type":"in",
+    "value":3
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"Times-Dispatch",
+    "text":"RT @RTDNEWS: BREAKING: Interim #UVA president doesn't support decision to oust Teresa Sullivan. http://t.co/iYAxJG5c #va #rva",
+    "type":"in",
+    "value":3
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"UVA",
+    "text":"RT @UVA: Wish we had a West Coast tweeter to take over... been a very very long day. #Uva<br>RT @UVA: The #UVa stream of BOV meeting topped out at 13,300 viewers; #uvafinals2012 topped out at 600.",
+    "type":"in",
+    "value":6
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"vapoliticsblog",
+    "text":"RT @vapoliticsblog: Tim Kaine: Reinstate U-Va. president Sullivan: Former governor Tim Kaine (D) became the most prominent official ...  ...",
+    "type":"in",
+    "value":3
+  },
+  {
+    "source":"Larry Sabato",
+    "target":"Yellow nova",
+    "text":"RT @Yellownova: _��@LarrySabato: Sullivan reinstated, 3 rules for good Wahoos: 1. No gloating. 2. No recriminations. 3. Reunify quickly &a ...",
+    "type":"in",
+    "value":3
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Adam Pearce",
+    "text":"RT @LarrySabato: Sorry, folks. #UVA made correct decision. Classes should not be cancelled for any political event. Bad precedent.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Adrienne McCallister",
+    "text":"RT @LarrySabato: #UVA has never had 16 days like this, at least since Kent State in May '70. It needs to end well w/reinstatement of Pre ...",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Alex Burns",
+    "text":"RT @LarrySabato: Apologies to my political followers but I'll be tweeting about #UVA matter today. I'm on the Lawn. Hope this is end of  ...",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Amy Doonan Cronin",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Amy Woolard",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Anne Holub",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"BRENDA SHORT",
+    "text":"RT @LarrySabato: Sorry, folks. #UVA made correct decision. Classes should not be cancelled for any political event. Bad precedent.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Cameron Howell",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Carolina Designs",
+    "text":"RT @LarrySabato: Thanks to the 21 top UVA students who brought the TJ quote in banner form to hang from Pavilion IV, The Lawn, #UVA.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Chelsea Henderson",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Cheryl Lynn Collins ",
+    "text":"RT @LarrySabato: #UVA has never had 16 days like this, at least since Kent State in May '70. It needs to end well w/reinstatement of Pre ...",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Claudia Dodson",
+    "text":"RT @LarrySabato: And for me &amp; my team, the end of Sullivan-gate and a full return to politics off these Grounds! #UVA",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Claudia Quintero",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Courtney Lamie",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Coy Barefoot",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully. <br>RT @LarrySabato: And for me &amp; my team, the end of Sullivan-gate and a full return to politics off these Grounds! #UVA <br> RT @LarrySabato: Friends, enough second-guessing the #UVA matter. I'm not answering questions about what really happened, who did what t ...",
+    "type":"out",
+    "value":3
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Dave Saunders",
+    "text":"RT @LarrySabato: Thanks to the 21 top UVA students who brought the TJ quote in banner form to hang from Pavilion IV, The Lawn, #UVA.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Dave Taibl",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"dawne",
+    "text":"RT @LarrySabato: And for me &amp; my team, the end of Sullivan-gate and a full return to politics off these Grounds! #UVA",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Earldean Mayfield",
+    "text":"RT @LarrySabato: #UVA has never had 16 days like this, at least since Kent State in May '70. It needs to end well w/reinstatement of Pre ...",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Edward Daniels",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Edward Webster",
+    "text":"RT @LarrySabato: Thanks to the 21 top UVA students who brought the TJ quote in banner form to hang from Pavilion IV, The Lawn, #UVA.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Emily Fenichel",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Eric Birkholz",
+    "text":"RT @LarrySabato: #UVA has never had 16 days like this, at least since Kent State in May '70. It needs to end well w/reinstatement of Pre ...",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Fonder of Riddles",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Freddie D'Ascanio",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Gabriel Walters",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Gary riebel",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Greg Hite",
+    "text":"RT @LarrySabato: Thanks to the 21 top UVA students who brought the TJ quote in banner form to hang from Pavilion IV, The Lawn, #UVA.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Gretchen McKay",
+    "text":"RT @LarrySabato: Thanks to the 21 top UVA students who brought the TJ quote in banner form to hang from Pavilion IV, The Lawn, #UVA.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Heather White",
+    "text":"RT @LarrySabato: #UVA has never had 16 days like this, at least since Kent State in May '70. It needs to end well w/reinstatement of Pre �<br>RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully. <br>RT @LarrySabato: Thanks to the 21 top UVA students who brought the TJ quote in banner form to hang from Pavilion IV, The Lawn, #UVA.",
+    "type":"out",
+    "value":2
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Ifeoma Nwabuje",
+    "text":"RT @LarrySabato: Apologies to my political followers but I'll be tweeting about #UVA matter today. I'm on the Lawn. Hope this is end of  �<br>RT @LarrySabato: #UVA has never had 16 days like this, at least since Kent State in May '70. It needs to end well w/reinstatement of Pre ...",
+    "type":"out",
+    "value":2
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"jacob heil",
+    "text":"RT @LarrySabato: Apologies to my political followers but I'll be tweeting about #UVA matter today. I'm on the Lawn. Hope this is end of  ...",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Jason Cottrell",
+    "text":"RT @LarrySabato: Apologies to my political followers but I'll be tweeting about #UVA matter today. I'm on the Lawn. Hope this is end of  ...",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Jennifer McClellan",
+    "text":"RT @LarrySabato: Thanks to the 21 top UVA students who brought the TJ quote in banner form to hang from Pavilion IV, The Lawn, #UVA.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"jenny c.",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Joanna Berger",
+    "text":"RT @LarrySabato: Inside info: BOV finally wrapping up. Should be going to public session soon.<br>RT @LarrySabato: An endless meeting is what happens when a controversial Board decision isn't even transparent to all its own members.<br>RT @LarrySabato: The person inside said \"soon\", not \"immediately\". And \"soon\" is a relative term, especially to this BOV. As in \"before  ...",
+    "type":"out",
+    "value":3
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Joel McGlothlin",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"John Flowers",
+    "text":"RT @LarrySabato: #UVA has never had 16 days like this, at least since Kent State in May '70. It needs to end well w/reinstatement of Pre ...",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"John Loudon",
+    "text":"RT @LarrySabato: Thanks to the 21 top UVA students who brought the TJ quote in banner form to hang from Pavilion IV, The Lawn, #UVA.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Julie Gabrielli",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Justice for People",
+    "text":"RT @LarrySabato: #UVA has never had 16 days like this, at least since Kent State in May '70. It needs to end well w/reinstatement of Pre ...",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Justin Reich",
+    "text":"RT @LarrySabato: #UVA has never had 16 days like this, at least since Kent State in May '70. It needs to end well w/reinstatement of Pre ...",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Kelley Shepherd",
+    "text":"RT @LarrySabato: Sorry, folks. #UVA made correct decision. Classes should not be cancelled for any political event. Bad precedent.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Kyle Kondik",
+    "text":"RT @LarrySabato: And for me &amp; my team, the end of Sullivan-gate and a full return to politics off these Grounds! #UVA",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"lauren antle",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Lindsay Wise",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Liz Palka",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"makowrites",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.<br>RT @LarrySabato: And for me &amp; my team, the end of Sullivan-gate and a full return to politics off these Grounds! #UVA",
+    "type":"out",
+    "value":2
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Mark Herring",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Mark Moran",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Marty Dunleavy",
+    "text":"RT @LarrySabato: And for me &amp; my team, the end of Sullivan-gate and a full return to politics off these Grounds! #UVA",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Mary Wright Baylor",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Matt Crane",
+    "text":"RT @LarrySabato: Sorry, folks. #UVA made correct decision. Classes should not be cancelled for any political event. Bad precedent.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Matt Smyth",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Melissa Henriksen",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Melissa Savenko",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Michael Habib",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"ML",
+    "text":"RT @LarrySabato: Thanks to the 21 top UVA students who brought the TJ quote in banner form to hang from Pavilion IV, The Lawn, #UVA.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Moe Taylor",
+    "text":"RT @LarrySabato: And for me &amp; my team, the end of Sullivan-gate and a full return to politics off these Grounds! #UVA",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Mollie C",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Nathan Britt",
+    "text":"RT @LarrySabato: Apologies to my political followers but I'll be tweeting about #UVA matter today. I'm on the Lawn. Hope this is end of  ...",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Old Alchemist",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Peter Griesar",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Peter Martin",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Phil Pinckney",
+    "text":"RT @LarrySabato: #UVA has never had 16 days like this, at least since Kent State in May '70. It needs to end well w/reinstatement of Pre ...",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"piksipuzzlebox",
+    "text":"RT @LarrySabato: #UVA has never had 16 days like this, at least since Kent State in May '70. It needs to end well w/reinstatement of Pre ...",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"piksipuzzlebox",
+    "text":"RT @LarrySabato: Apologies to my political followers but I'll be tweeting about #UVA matter today. I'm on the Lawn. Hope this is end of  ...<br>RT @LarrySabato: Apologies to my political followers but I'll be tweeting about #UVA matter today. I'm on the Lawn. Hope this is end of  ...",
+    "type":"out",
+    "value":2
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"R. Cooper",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Rally For Honor 6/24",
+    "text":"RT @LarrySabato: Thanks to the 21 top UVA students who brought the TJ quote in banner form to hang from Pavilion IV, The Lawn, #UVA.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Rob Blackwell",
+    "text":"RT @LarrySabato: #UVA has never had 16 days like this, at least since Kent State in May '70. It needs to end well w/reinstatement of Pre �<br>RT @LarrySabato: Inability of some in high office to admit they are wrong, even in face of overwhelming evidence, is at heart of matter  ...",
+    "type":"out",
+    "value":2
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Rodger Nayak",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Saira J.",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Sarah Olson",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Sidney Burris",
+    "text":"RT @LarrySabato: Friends, enough second-guessing the #UVA matter. I'm not answering questions about what really happened, who did what t ...",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Siva Vaidhyanathan",
+    "text":"RT @LarrySabato: UVA in Crisis: Good letter by Gov. McDonnell. BOV on notice to clean up its mess. Only way forward - reinstate Sullivan<br>RT @LarrySabato: Zeithaml returning to UVA Commerce School. The right thing to do. A salute to Carl.<br>RT @LarrySabato: Thanks to the 21 top UVA students who brought the TJ quote in banner form to hang from Pavilion IV, The Lawn, #UVA.<br>RT @LarrySabato: Thanks to the 21 top UVA students who brought the TJ quote in banner form to hang from Pavilion IV, The Lawn, #UVA.<br>RT @LarrySabato: Disaster will be studied for decades (ironically, in B-Schools) as how NOT to proceed. Maybe UVA can get royalties &amp ...<br>RT @LarrySabato: There's not 1 thing in Dragas statement that we couldn't have worked on together as a UVA community. Not given chance-- ...<br>RT @LarrySabato: Rector Dragas: \"We did the right thing in the wrong way.\" No, sorry, it was wrong thing in wrong way. Good intentions d ...<br>RT @LarrySabato: 1000s working together, everyone vital, to encourage BOV to do right thing Tuesday. It's OK: Failure of New Coke made o ...<br>RT @LarrySabato: Thanks to honorable BOV member Heywood Fralin for speaking out, saying he didn't have chance to back Terry Sullivan. #s �<br>RT @LarrySabato: Despite \"unified front\", there are deep rifts in BOV among current, as well as former recent, members. Some know how ba ...<br>RT @LarrySabato: Vice Rector Kington just resigned, my guess is Rector Dragas won't be reappointed in 2 weeks. But too late to prevent s ...<br>",
+    "type":"out",
+    "value":11
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"SoccerLaw",
+    "text":"RT @LarrySabato: Thanks to the 21 top UVA students who brought the TJ quote in banner form to hang from Pavilion IV, The Lawn, #UVA.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"suebob212",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Supreme ILLogic",
+    "text":"RT @LarrySabato: #UVA has never had 16 days like this, at least since Kent State in May '70. It needs to end well w/reinstatement of Pre ...",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Tiffany",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Tim Mulholland",
+    "text":"RT @LarrySabato: #UVA has never had 16 days like this, at least since Kent State in May '70. It needs to end well w/reinstatement of Pre ...",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Tim Thornton",
+    "text":"RT @LarrySabato: Thanks to the 21 top UVA students who brought the TJ quote in banner form to hang from Pavilion IV, The Lawn, #UVA.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Tom Glendening",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"TwitUVA",
+    "text":"RT @LarrySabato: Apologies to my political followers but I'll be tweeting about #UVA matter today. I'm on the Lawn. Hope this is end of  ...",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"United4Honor",
+    "text":"RT @LarrySabato: May I suggest to all loyal 'Hoos that we simply refer to the Sullivan matter as \"the recent unpleasantness\"--and let it ...<br>RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.<br>RT @LarrySabato: Sullivan struck all the right notes, every sentence was cheered. We would have applauded her reading telephone directory.<br>RT @LarrySabato: Dragas opens BOV with \"apology\"--but only because she didn't give context to firing. Blames overwhelmed UVA communicati ...<br>RT @LarrySabato: Apologies to my political followers but I'll be tweeting about #UVA matter today. I'm on the Lawn. Hope this is end of  ...",
+    "type":"out",
+    "value":5
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Vadim Y. Bichutskiy",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"vivektaneja",
+    "text":"RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"WAL",
+    "text":"RT @LarrySabato: And for me &amp; my team, the end of Sullivan-gate and a full return to politics off these Grounds! #UVA<br>RT @LarrySabato: And for me &amp; my team, the end of Sullivan-gate and a full return to politics off these Grounds! #UVA",
+    "type":"out",
+    "value":2
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Will Umphres",
+    "text":"RT @LarrySabato: #UVA has never had 16 days like this, at least since Kent State in May '70. It needs to end well w/reinstatement of Pre ...",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"Yinka Diz",
+    "text":"RT @LarrySabato: #UVA has never had 16 days like this, at least since Kent State in May '70. It needs to end well w/reinstatement of Pre ...",
+    "type":"out",
+    "value":1
+  },
+  {
+    "target":"Larry Sabato",
+    "source":"YLI Youth Leadership",
+    "text":"RT @LarrySabato: And for me &amp; my team, the end of Sullivan-gate and a full return to politics off these Grounds! #UVA<br>RT @LarrySabato: Now #UVA, let's move on together, repair the damage, and reunite fully.",
+    "type":"out",
+    "value":2
+  }
+]
+
+var nodes = {};
+
+// Compute the distinct nodes from the links.
+links.forEach(function(link) {
+  link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
+  link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
+});
+
+var width = 860
+    height = 500;
+
+var force = d3.layout.force()
+    .nodes(d3.values(nodes))
+    .links(links)
+    .size([width, height])
+    .linkDistance(60)
+    .charge(-300)
+    .on("tick", tick)
+    .start();
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+// Per-type markers, as they don't inherit styles.
+svg.append("defs").selectAll("marker")
+    .data(["out", "in", "resolved"])
+  .enter().append("marker")
+    .attr("id", function(d) { return d; })
+    .attr("viewBox", "0 -5 10 10")
+    .attr("refX", 15)
+    .attr("refY", -1.5)
+    .attr("markerWidth", 6)
+    .attr("markerHeight", 6)
+    .attr("orient", "auto")
+  .append("path")
+    .attr("d", "M0,-5L10,0L0,5");
+
+var path = svg.append("g").selectAll("path")
+    .data(force.links())
+  .enter().append("path")
+    .attr("class", function(d) { return "link " + d.type; })
+    .attr("marker-end", function(d) { return "url(#" + d.type + ")"; })
+    .style("opacity", function(d){return d.value/10.0*2});
+
+var circle = svg.append("g").selectAll("circle")
+    .data(force.nodes())
+  .enter().append("circle")
+    .attr("r", 6)
+    .call(force.drag);
+
+// On node hover, examine the links to see if their
+// source or target properties match the hovered node.
+circle.on('mouseover', function(d) {
+  path.style('stroke-width', function(l) {
+    if (d === l.source || d === l.target) {
+      if (d===l.source)
+        d3.select("#tweet1").text("This user retweets Larry: " + l.text);
+      else
+        d3.select("#tweet2").text("Larry retweets this user: " + l.text);
+      return 6;
+    }
+  });
+});
+
+// Set the stroke width back to normal when mouse leaves the node.
+circle.on('mouseout', function() {
+  path.style('stroke-width', function(l) {return 1.5})
+  d3.select("#tweet1").text("This user retweets Larry: ");
+  d3.select("#tweet2").text("Larry retweets this user: ");
+});
+
+
+var text = svg.append("g").selectAll("text")
+    .data(force.nodes())
+  .enter().append("text")
+    .attr("x", 8)
+    .attr("y", ".31em")
+    .text(function(d) { return d.name; });
+
+// Use elliptical arc path segments to doubly-encode directionality.
+function tick() {
+  path.attr("d", linkArc);
+  circle.attr("transform", transform);
+  text.attr("transform", transform);
+}
+
+function linkArc(d) {
+  var dx = d.target.x - d.source.x,
+      dy = d.target.y - d.source.y,
+      dr = Math.sqrt(dx * dx + dy * dy);
+  return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
+}
+
+function transform(d) {
+  return "translate(" + d.x + "," + d.y + ")";
+}
+
+</script>
+<div id="instructions">
+<h5>Mouseover a node to view the actual tweets. Or drag the node to examine it more easily.</h5>
+<h6>About the graph</h6>
+<p>Each graph node represents a Tweeter user, center node being Larry Sabato.</p>
+<p>All users are connected directed to Larry, and not to each other.</p>
+<p>You can use web browser search box to search for a particular user.</p>
+<p>The graph also consists of two types of links:</p>
+<p><span style="color:red">Red</span> ones indicate that there is at least one tweet originated by the user that's retweeting, and <span style="color:green">green</span> ones vice versa.</p>
+<p>The actual number of retweets happening between a user and Larry is implied by opacity of link colors.</p>
+<p>Nodes closest to Larry are users that have a bi-directional relationship with Larry.</p>
+</div>
+</body>
