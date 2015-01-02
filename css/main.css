@@ -162,3 +162,14 @@ div.paragraph ol, div.paragraph ol li { list-style: decimal outside !important; 
 h2#profile-name {
  font-family: "PT Sans", sans-serif;
 }
+
+.wsite-social-item.myitem {
+	width: 20px;
+	height: 20px;
+	margin: 0 0 0 3px;
+	background-image: url(theme/social-grey.png?565093);
+}
+
+.wsite-social-linkedin.myitem {
+	background-position: -60px 0;
+}
