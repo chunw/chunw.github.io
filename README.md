@@ -10,3 +10,4 @@ New site URL: http://chunw.github.io/
 ~~* Refactor all code from third-party site builder~~
 * Redesign layout and palette
 * Create a Mobile version of the site
+* Cross-browser testing
