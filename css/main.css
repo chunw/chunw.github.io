@@ -5,6 +5,7 @@
  a:hover { color: #d8ffaf; }
  body { font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #676767; margin: 0; padding: 0; background: #141414; }
  h2 { font-size: 1.9em; margin: 0; padding: .3em 0; line-height: 1.2; font-family: "Play", Arial, Helvetica, sans-serif; font-weight: normal; -webkit-text-stroke-width: 0.3px; }
+ #content { padding: 3px 0; min-height: 400px; padding: 23px 0; }
  #content h2 { color: #fff; }
  div.paragraph { font-size: 1em; line-height: 1.5; margin: 0; padding: .5em 0; }
  p { font-size: 1em; line-height: 1.5; margin: 0; padding: .5em 0; }
@@ -14,11 +15,11 @@
  #content abbr { border-bottom: 1px dotted #8f8f8f; }
  #page { margin: 0 auto; width: 950px; }
  #nav-wrap, #header-wrap, #main-wrap, #banner-wrap, #footer-wrap { min-width: 950px; }
- #header-wrap { background: #1d1d1d url(theme/header-bg.png?565093) repeat-x; border-bottom: 1px solid #272727; }
- #header { width: 100%; height: 102px; }
+ #header-wrap { background: #1d1d1d; border-bottom: 1px solid #272727; }
+ #header { width: 100%; }
  #header, #header table { border-collapse: collapse; border-spacing: 0; }
  #header td { vertical-align: middle; text-align: left; }
- #logo { padding: 25px 0; }
+ #logo { padding-top: 25px; padding-bottom: 5px; }
  #logo, #logo a { color: #fff; font-size: 48px; font-family: "Play", Arial, Helvetica, sans-serif; -webkit-text-stroke-width: 0.5px; }
  #logo a:hover { color: #fff; }
  #header-right { padding: 3px 0 0 10px; }
@@ -75,33 +76,7 @@
  #topnav li#active a, #topnav a:hover { color: #80b548; border: 0; }
  #mysite-menus .mysite-menu li a { font-family: Arial, Helvetica, sans-serif; padding: 10px; color: #8d8c8c; background: #383838; border: 0; }
  #mysite-menus .mysite-menu li a:hover { color: #80b548; background: #292929; }
- #banner-wrap { background: #0f0f0f; border-bottom: 1px solid #272727; overflow: hidden; }
- #banner { position: relative; padding: 17px 0 16px; overflow: hidden; }
- #banner-inner, #bannerleft { border: 8px solid #292929; }
- #content { min-height: 400px; padding: 23px 0; }
- .tall-header-page .mysite-header { width: 934px; height: 290px; background: url(theme/banner-tall.jpg?565093) no-repeat; }
- .short-header-page .mysite-header { width: 934px; height: 170px; background: url(theme/banner-short.jpg?565093) no-repeat; }
- .no-header-page #banner-wrap { padding: 5px 0 4px; }
- .no-header-page #banner { display: none; }
- .landing-page #banner { overflow: hidden; border: none; }
- .landing-page #banner-inner { border: none; }
- #bannerleft { float: left; padding: 0; position: relative; }
- .landing-page .mysite-header { width: 529px; height: 360px; background: url(theme/banner-landing.jpg?565093) no-repeat; }
- .landing-banner-outer { display: table; #position: relative; overflow: hidden; }
- .landing-banner-mid { #position: absolute; #top: 50%; display: table-cell; vertical-align: middle; }
- .landing-banner-inner { #position: relative; #top: -50%; }
- #bannerright { float: left; width: 365px; height: 376px; padding: 0 0 0 35px; }
- #bannerright h2 { color: #fff; font-size: 30px; padding: 0px; line-height: 30px; }
- #bannerright div.paragraph { color: #676767; font-size: 14px; padding: 20px 0px; line-height: 140%; margin: 0; }
- #bannerright p { color: #676767; font-size: 14px; padding: 20px 0px; line-height: 140%; margin: 0; }
- #bannerright .mysite-button { margin: 0; }
- .splash-page #header { width: 532px; }
- .splash-page #banner { width: 527px; height: 161px; padding: 6px 4px 4px 6px; background: url(theme/banner-splash-bg.png?565093) no-repeat; }
- .splash-page .mysite-header { width: 515px; height: 149px; background: url(theme/banner-splash.jpg?565093) no-repeat; }
- .splash-page #content-container { width: 528px; }
- .splash-page #content { width: 528px; }
- .splash-page #footer { width: 524px; }
- #footer { padding: 45px 0 50px 0; font-size: 12px; color: #fff; font-family: Arial, Helvetica, sans-serif; text-align: right; }
+ #footer { padding: 19px 0 19px 0; font-size: 12px; color: #fff; font-family: Arial, Helvetica, sans-serif; text-align: right; }
  #footer div.paragraph { color: #888; }
  #footer p { color: #888; }
  #footer a { color: #666666; }
@@ -119,22 +94,6 @@
  .mysite-footer .form-radio-container { font-size:1em; }
  .mysite-footer .mysite-form-input, .mysite-footer .mysite-search-element-input { font-size: 1em; width: 100% !important; background:#222; color:#ccc; border:1px solid #333; }
  .mysite-footer .form-select { width: 100%; }
- .mysite-button { color: #fff !important; font-family: Arial, Helvetica, sans-serif; height: 34px; display: inline-block; font-size: 12px; border: none; font-weight: bold; font-size: 13px; text-decoration: none; padding: 0 15px 0 0; background: url(theme/button.png?565093) no-repeat 100% -105px; text-shadow:0 -1px 0 rgba(0,0,0,0.6); }
- .mysite-button:hover { background-position: 100% -140px; }
- .mysite-button:active { background-position: 100% -175px; }
- .mysite-button-inner { height: 34px; line-height: 34px; display: block; font-size: 14px; font-weight: bold; border: none; text-decoration: none; padding: 0 10px 0 25px; background: url(theme/button.png?565093) no-repeat 0 0; }
- .mysite-button:hover .mysite-button-inner { background-position: 0 -35px; }
- .mysite-button:active .mysite-button-inner { background-position: 0 -70px; }
- .mysite-button-large { height: 41px; background: url(theme/button_large.png?565093) no-repeat 100% -126px; padding: 0 15px 0 0; }
- .mysite-button-large:hover { background-position: 100% -168px; }
- .mysite-button-large:active { background-position: 100% -210px; }
- .mysite-button-large .mysite-button-inner { height: 41px; line-height: 41px; padding: 0 10px 0 25px; background: url(theme/button_large.png?565093) no-repeat 0 0; }
- .mysite-button-large:hover .mysite-button-inner { background-position: 0 -42px; }
- .mysite-button-large:active .mysite-button-inner { background-position: 0 -84px; }
- .mysite-button-large.mysite-button-highlight { background-image: url(theme/button_large_highlight_green.png?565093); }
- .mysite-button-large.mysite-button-highlight .mysite-button-inner { background-image: url(theme/button_large_highlight_green.png?565093); }
- .mysite-button-highlight { background-image: url(theme/button_highlight_green.png?565093); }
- .mysite-button-highlight .mysite-button-inner { background-image: url(theme/button_highlight_green.png?565093); }
  .mysite-image { padding: 0 15px; }
 
 div.paragraph ul, div.paragraph ol { padding-left: 2.3em !important; margin: 5px 0 !important; overflow:hidden; }
@@ -142,25 +101,8 @@ div.paragraph li { padding-left: 5px !important; margin: 3px 0 0 !important; }
 div.paragraph ul, div.paragraph ul li { list-style: disc outside !important; }
 div.paragraph ol, div.paragraph ol li { list-style: decimal outside !important; }
 
-/* custom styles */
-#header-wrap {
-  height: 182px !important;
-  margin-top: -5px;
-}
-#content {
-  padding: 3px 0;
-}
-#footer {
-  padding: 19px 0 19px 0;
-}
-#blogs-wrapper .image-wrapper {
-  -webkit-border-radius: 50em;
-  -moz-border-radius: 50em;
-  border-radius: 50em;
-}
-h2#profile-name {
- font-family: "PT Sans", sans-serif;
-}
+
+h2#profile-name { font-family: "PT Sans", sans-serif; }
 
 .mysite-social-item.myitem {
 	width: 20px;

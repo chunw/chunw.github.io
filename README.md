@@ -8,6 +8,6 @@ New site URL: http://chunw.github.io/
 ~~* Move all asset files to `uploads/` folder, fix links~~
 ~~* Move all asset images to `img/` folder, fix links~~
 ~~* Refactor all code from third-party site builder~~
-* Redesign layout and palette
+* Cross-browser testing - Firefox
 * Create a Mobile version of the site
-* Cross-browser testing
+* Refactor css styles
