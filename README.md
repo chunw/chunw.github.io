@@ -7,5 +7,6 @@ New site URL: http://chunw.github.io/
 ~~* Move the site to Github~~
 ~~* Move all asset files to `uploads/` folder, fix links~~
 ~~* Move all asset images to `img/` folder, fix links~~
-* Setup Jekyll for local dev
-* Refactor all code from third-party site builder
+~~* Refactor all code from third-party site builder~~
+* Redesign layout and palette
+* Create a Mobile version of the site

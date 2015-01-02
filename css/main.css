@@ -22,7 +22,7 @@
  #logo, #logo a { color: #fff; font-size: 48px; font-family: "Play", Arial, Helvetica, sans-serif; -webkit-text-stroke-width: 0.5px; }
  #logo a:hover { color: #fff; }
  #header-right { padding: 3px 0 0 10px; }
- #header-right table { float: right; width: 1px; }
+ #header-right table { float: right; }
  #header-right td { padding: 0; }
  #header-right a { color: #80b548; }
  #header-right a:hover { color: #d8ffaf; }
