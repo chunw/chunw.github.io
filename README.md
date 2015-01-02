@@ -1,6 +1,7 @@
 # CHUNJW.COM -> chunw.github.io
 
 This project is to track the refactoring of code for my personal website.
+New site URL: http://chunw.github.io/
 
 ## TODO:
 ~~* Move the site to Github~~
