@@ -29,6 +29,8 @@
  #header-right a:hover { color: #d8ffaf; }
  #header-right .phone-number .mysite-text { display: block; white-space: nowrap; color: #5d5d5d; font-size: 12px; font-weight: normal; font-family: Arial, Helvetica, sans-serif; text-decoration: none; margin: 2px 0 0 15px; }
  #header .mysite-social { margin: 0 0 0 10px; }
+ #header .url-link-text {color: #80b548 !important; font-style: italic; white-space: nowrap; color: #5d5d5d;font-size: 16px; font-weight: normal;font-family: Arial, Helvetica, sans-serif;}
+ #header .url-link-text:hover {color: #d8ffaf;}
  .mysite-social-item { width: 20px; height: 20px; margin: 0 0 0 3px; background-image:url(img/social-grey.png?565093); }
  .mysite-social-facebook {background-position:0 0;}
  .mysite-social-facebook:hover {background-position:0 -20px;}
@@ -102,7 +104,7 @@ div.paragraph ul, div.paragraph ul li { list-style: disc outside !important; }
 div.paragraph ol, div.paragraph ol li { list-style: decimal outside !important; }
 
 
-h2#profile-name { font-family: "PT Sans", sans-serif; }
+h2#profile-name { font-family: "PT Sans", sans-serif; font-size: 36px;}
 
 .mysite-social-item.myitem {
 	width: 20px;
