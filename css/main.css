@@ -34,6 +34,7 @@
  .mysite-display-table {display: table;}
  .mysite-display-table-row {display: table-row;}
  .mysite-display-table-cell {display: table-cell;}
+ .mysite-vertical-align {vertical-align: middle;}
  #mysite-appdynamics-work-display .mysite-display-table-cell {padding-top: 12px;}
  .mysite-social-item { width: 20px; height: 20px; margin: 0 0 0 3px; background-image:url(img/social-grey.png?565093); }
  .mysite-social-facebook {background-position:0 0;}
