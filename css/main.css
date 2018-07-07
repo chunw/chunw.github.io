@@ -142,19 +142,20 @@ ul li {
 	transition: opacity 0.5s;
 }
 .navigation {
+    color: #6c7279;
     width: 100%;
-    text-align: right;
+    padding-top: 12px;
+    text-align: left;
 }
 .navigation li {
 	display: inline-block;
 }
-.navigation, .navigation a {
+.navigation a {
 	color: rgba(0, 0, 0, 1);
 	font-size: 14px;
-    text-decoration: underline;
-	margin-left: 40px;
-    margin-right: 40px;
 	letter-spacing: -1px;
+    text-decoration: underline;
+    float: right;
 }
 .navigation a:hover, .navigation a.active {
 	color: #000;
