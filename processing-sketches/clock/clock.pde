@@ -8,7 +8,7 @@ void setup()
 //Body of the clock
   background(255);
   fill(0);
-  translate(width/2,width/2);
+  translate(width/2,height/2);
   strokeWeight(12);
   stroke(255);
   ellipse(0,0,200,200);
