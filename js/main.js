@@ -22,12 +22,12 @@ function onclickPrev() {
 
 function skipToWork(index) {
     location.href = "#work" + index;
-    $("#current-work").text(index);
+    //$("#current-work").text(index);
 }
 
 $(document).ready(function() {
-    $("#current-work").text(MIN_WORK_INDEX);
-    $("#num-works").text(MAX_WORK_INDEX);
+    //$("#current-work").text(MIN_WORK_INDEX);
+    //$("#num-works").text(MAX_WORK_INDEX);
     
     
 	// Header Scroll
