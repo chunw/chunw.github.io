@@ -8,8 +8,7 @@ function onclickNext() {
     } else {
         currentWorkIndex = MIN_WORK_INDEX;
     }
-    location.href = "#work" + currentWorkIndex;
-    $("#current-work").text(currentWorkIndex);
+    skipToWork(currentWorkIndex);
 }
 
 function onclickPrev() {
@@ -18,10 +17,13 @@ function onclickPrev() {
     } else {
         currentWorkIndex = MAX_WORK_INDEX;
     }
-    location.href = "#work" + currentWorkIndex;
-    $("#current-work").text(currentWorkIndex);
+    skipToWork(currentWorkIndex);
 }
 
+function skipToWork(index) {
+    location.href = "#work" + index;
+    $("#current-work").text(index);
+}
 
 $(document).ready(function() {
     $("#current-work").text(MIN_WORK_INDEX);
