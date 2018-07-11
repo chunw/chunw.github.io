@@ -66,7 +66,7 @@ h5 {
 	Global Styles
 -------------------------------------------------------------------------------*/
 a {
-	color: #e84545;
+	
 }
 a:hover, a:focus {
 	text-decoration: none;
@@ -155,7 +155,7 @@ ul li {
 	display: inline-block;
 }
 .navigation a {
-	color: rgba(0, 0, 0, 1);
+    cursor: pointer;
 	font-size: 14px;
 	letter-spacing: -1px;
     text-decoration: underline;

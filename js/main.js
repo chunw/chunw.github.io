@@ -1,5 +1,31 @@
+const MIN_WORK_INDEX = 1;
+const MAX_WORK_INDEX = 6;
+var currentWorkIndex = MIN_WORK_INDEX;
+
+function onclickNext() {
+    if (currentWorkIndex < MAX_WORK_INDEX) {
+        currentWorkIndex += 1;
+    } else {
+        currentWorkIndex = MIN_WORK_INDEX;
+    }
+    location.href = "#work" + currentWorkIndex;
+}
+
+function onclickPrev() {
+    if (currentWorkIndex > MIN_WORK_INDEX) {
+        currentWorkIndex -= 1;
+    } else {
+        currentWorkIndex = MAX_WORK_INDEX;
+    }
+    location.href = "#work" + currentWorkIndex;
+}
+
+
 $(document).ready(function() {
+    
+    
 	// Header Scroll
+    /*
 	$(window).on('scroll', function() {
 		var scroll = $(window).scrollTop();
 
@@ -44,5 +70,5 @@ $(document).ready(function() {
 	nav.find('a').on('click', function() {
 		$('.nav-toggle').toggleClass('close-nav');
 		nav.toggleClass('open');
-	});
+	});*/
 });
