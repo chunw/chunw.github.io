@@ -9,6 +9,7 @@ function onclickNext() {
         currentWorkIndex = MIN_WORK_INDEX;
     }
     location.href = "#work" + currentWorkIndex;
+    $("#current-work").text(currentWorkIndex);
 }
 
 function onclickPrev() {
@@ -18,10 +19,13 @@ function onclickPrev() {
         currentWorkIndex = MAX_WORK_INDEX;
     }
     location.href = "#work" + currentWorkIndex;
+    $("#current-work").text(currentWorkIndex);
 }
 
 
 $(document).ready(function() {
+    $("#current-work").text(MIN_WORK_INDEX);
+    $("#num-works").text(MAX_WORK_INDEX);
     
     
 	// Header Scroll
