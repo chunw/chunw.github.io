@@ -78,7 +78,6 @@ a:hover, a:focus {
 body {
 	font-family: "Cutive Mono";
 	font-weight: 400;
-	color: #fff;
 }
 ul, ol {
 	margin: 0;
@@ -446,4 +445,17 @@ ul li {
 .work-detail a
 {
 	color:#000;
+}
+.work-list-header {
+    font-size: 17px;
+    margin-bottom: 4px;
+}
+.work-list-title {
+    font-style: italic;
+    margin-left: 12px;
+    
+}
+.work-list-media {
+    font-size: 12px;
+    margin-left: 12px;
 }
