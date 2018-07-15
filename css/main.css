@@ -497,6 +497,5 @@ ul li {
     animation-delay: .4s;
 }
 #p5_loading {
-	font-size: 15px;
-  padding-left: 65px;
+	display:none;
 }
