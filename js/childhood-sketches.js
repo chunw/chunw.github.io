@@ -56,6 +56,7 @@ var t = function( p ) {
     p.createCanvas(innerWidth-8, innerHeight);
     p.frameRate(2);
     p.smooth();
+    $("#cover-sketch-loading").hide();
   };
   p.draw = function() {
     p.background(bg);

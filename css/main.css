@@ -465,6 +465,10 @@ ul li {
     font-size: 12px;
 		margin-left: 4px;
 }
+#cover-sketch-loading {
+	font-size: 15px;
+  padding-left: 65px;
+}
 #p5_loading {
 	font-size: 15px;
   padding-left: 65px;
