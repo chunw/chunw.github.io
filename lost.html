@@ -17,8 +17,6 @@
 <link rel="stylesheet" href="css/responsive.css">
 <link rel="stylesheet" href="css/font-icon.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.js"></script>
-<script src="js/sketch.js"></script>
 </head>
 <body>
 <!-- header top section -->
@@ -26,7 +24,7 @@
   <header id="header">
       <nav class="navigation" role="navigation">
         <tr class="primary-nav">
-          <td><span>消失的童年 | 2017-2018 | 复合媒材 </span></td>
+          <td><span>消失的童年 | 2017-2018</span></td>
             <!--<td><a class="noselect pull-right" onclick="onclickNext()" style="margin-left: 12px;">Next</a>
             <span class="noselect pull-right" style="margin-left: 12px;"><span id="current-work"></span>/<span id="num-works"></span></span>
             <a class="noselect pull-right" onclick="onclickPrev()">Prev</a> </td>-->
@@ -60,29 +58,33 @@
 
             <img id="work1" style="margin:0" src="images/childhood/cover.png" class="img-responsive" alt="">
 
-            <div style="text-align: center; width: 100%;">
-                <canvas id="work2" id="work2" style="width: 100% !important;" data-processing-sources="processing-sketches/clock/clock.pde"></canvas>
-            </div>
+            <div id="work2"></div>
 
-            <img id="work3" style="padding-top: 200px; float: right; width:50%" src="images/childhood/last-bus.jpg" class="img-responsive" alt="">
+            <div id="work3"></div>
 
-            <div id="work10" style="background: white; padding: 200px 0 100px">
+            <img id="work4" style="padding-top: 200px; float: right; width:50%" src="images/childhood/last-bus.jpg" class="img-responsive" alt="">
+
+            <div id="work5" style="background: white; padding: 200px 0 100px">
                 <img style="margin: auto; width: 100%; " src="images/childhood/untitled.jpg" class="img-responsive" alt="">
             </div>
-            <div id="work4" style="background: white; margin-top: 600px; padding: 300px 0 100px">
+
+            <div id="work6" style="background: white; margin-top: 600px; padding: 300px 0 100px">
                 <img style="margin:0; width: 300px; margin-left: 10%;" src="images/childhood/combustion-face.jpg" class="img-responsive" alt="">
             </div>
-            <div id="work5" style="background: white; padding: 200px 0 100px">
+
+            <div id="work7" style="background: white; padding: 200px 0 100px">
                 <img style="margin: auto; width: 300px; " src="images/childhood/combustion-sky.png" class="img-responsive" alt="">
             </div>
 
             <div id="work8" style="background: white; padding: 200px 0 100px">
                 <img style="margin: auto; width: 100%; " src="images/childhood/electronics.jpg" class="img-responsive" alt="">
             </div>
+
             <div id="work9" style="background: white; padding: 200px 0 100px">
                 <img style="margin: auto; width: 100%; " src="images/childhood/mirror.jpg" class="img-responsive" alt="">
             </div>
-            <div id="work7" style="background: white; padding: 200px 0 100px">
+
+            <div id="work10" style="background: white; padding: 200px 0 100px">
                 <img style="margin: auto; width: 500px; " src="images/childhood/half.jpg" class="img-responsive" alt="">
             </div>
         </div>
@@ -93,7 +95,7 @@
 <!-- portfolio grid section -->
 
 <!-- footer section -->
-<footer class="footer" id="work6">
+<footer class="footer" id="work11">
   <div class="container">
     <div class="col-md-6 left">
       <div style="color: #b5b5b5; margin-left: 10%; text-align: left; padding-top: 50px;">
@@ -127,5 +129,6 @@
 <script src="js/processing.js"></script>
 <script src="js/modernizr.js"></script>
 <script src="js/main.js"></script>
+<script src="js/sketch.js"></script>
 </body>
 </html>
