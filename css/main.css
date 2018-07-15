@@ -137,7 +137,7 @@ ul li {
 	float: left;
 }
 #header.fixed {
-	background-color: rgba(255, 255, 255, 1);
+	/*background-color: rgba(255, 255, 255, 1);*/
 }
 #header.fixed .header-content {
 	border-bottom: 0;
