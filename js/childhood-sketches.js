@@ -51,11 +51,11 @@ var t = function( p ) {
     adult1 = p.loadImage("images/childhood/adult1.png");
     adult2 = p.loadImage("images/childhood/adult2.png");
     bg = p.loadImage("images/childhood/ladder_bg.png");
-  }
+  };
   p.setup = function() {
     p.createCanvas(innerWidth-8, innerHeight);
     p.frameRate(2);
-    p.smooth() ;
+    p.smooth();
   };
   p.draw = function() {
     p.background(bg);
