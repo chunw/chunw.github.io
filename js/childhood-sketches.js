@@ -46,7 +46,7 @@ var myp5 = new p5(s, 'work2');
 // Cover Sketch
 var t = function( p ) {
   var adult1, adult2, bg;
-  var myState = 12;
+  var myState = 22;
   p.setup = function() {
     p.createCanvas(innerWidth-8, innerHeight);
     p.frameRate(2);
