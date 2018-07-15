@@ -411,7 +411,7 @@ ul li {
 	 Footer
 -------------------------------------------------------------------------------*/
 .footer {
-	margin-top: 300px;
+	margin-top: 400px;
 	padding-bottom: 25px;
 	text-align: right;
 }
@@ -460,4 +460,8 @@ ul li {
 .work-list-media {
     font-size: 12px;
     margin-left: 12px;
+}
+.work-list-year {
+    font-size: 12px;
+		margin-left: 4px;
 }
