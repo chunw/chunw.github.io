@@ -47,13 +47,15 @@ var myp5 = new p5(s, 'work3');
 var t = function( p ) {
   var adult1, adult2, bg;
   var myState = 22;
+  p.preload = function() {
+    adult1 = p.loadImage("images/childhood/adult1.png");
+    adult2 = p.loadImage("images/childhood/adult2.png");
+    bg = p.loadImage("images/childhood/ladder_bg.png");
+  }
   p.setup = function() {
     p.createCanvas(innerWidth-8, innerHeight);
     p.frameRate(2);
     p.smooth() ;
-    adult1 = p.loadImage("images/childhood/adult1.png");
-    adult2 = p.loadImage("images/childhood/adult2.png");
-    bg = p.loadImage("images/childhood/ladder_bg.png");
   };
   p.draw = function() {
     p.background(bg);
