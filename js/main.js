@@ -31,7 +31,7 @@ $(document).ready(function() {
 
 
 	// Header Scroll
-    /*
+
 	$(window).on('scroll', function() {
 		var scroll = $(window).scrollTop();
 
@@ -76,5 +76,5 @@ $(document).ready(function() {
 	nav.find('a').on('click', function() {
 		$('.nav-toggle').toggleClass('close-nav');
 		nav.toggleClass('open');
-	});*/
+	});
 });
