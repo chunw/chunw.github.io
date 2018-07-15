@@ -79,7 +79,7 @@ var t = function( p ) {
     myState = myState - 1;
 
     if (myState < 0) {
-      myState = 20;
+      myState = 0;
     }
 
     switch(myState) {
