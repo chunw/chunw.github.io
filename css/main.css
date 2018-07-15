@@ -66,7 +66,7 @@ h5 {
 	Global Styles
 -------------------------------------------------------------------------------*/
 a {
-	
+
 }
 a:hover, a:focus {
 	text-decoration: none;
@@ -411,6 +411,8 @@ ul li {
 	 Footer
 -------------------------------------------------------------------------------*/
 .footer {
+	margin-top: 300px;
+	padding-bottom: 25px;
 	text-align: right;
 }
 .footer h4 {
@@ -453,7 +455,7 @@ ul li {
 .work-list-title {
     font-style: italic;
     margin-left: 12px;
-    
+
 }
 .work-list-media {
     font-size: 12px;

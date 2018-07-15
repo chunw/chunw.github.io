@@ -1,5 +1,5 @@
 const MIN_WORK_INDEX = 1;
-const MAX_WORK_INDEX = 6;
+const MAX_WORK_INDEX = 7;
 var currentWorkIndex = MIN_WORK_INDEX;
 
 function onclickNext() {
@@ -28,8 +28,8 @@ function skipToWork(index) {
 $(document).ready(function() {
     //$("#current-work").text(MIN_WORK_INDEX);
     //$("#num-works").text(MAX_WORK_INDEX);
-    
-    
+
+
 	// Header Scroll
     /*
 	$(window).on('scroll', function() {
@@ -42,7 +42,7 @@ $(document).ready(function() {
 		}
 	});
 
-	
+
 	// Page Scroll
 	var sections = $('section')
 		nav = $('nav[role="navigation"]');
@@ -72,7 +72,7 @@ $(document).ready(function() {
 		$(this).toggleClass('close-nav');
 		nav.toggleClass('open');
 		return false;
-	});	
+	});
 	nav.find('a').on('click', function() {
 		$('.nav-toggle').toggleClass('close-nav');
 		nav.toggleClass('open');

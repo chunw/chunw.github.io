@@ -27,13 +27,14 @@
       <nav class="navigation" role="navigation">
         <tr class="primary-nav">
           <td><span>消失的童年 | 2017-2018 | 复合媒材 </span></td>
-            <td><a class="noselect pull-right" onclick="onclickNext()" style="margin-left: 12px;">Next</a> <!--<span class="noselect pull-right" style="margin-left: 12px;"><span id="current-work"></span>/<span id="num-works"></span></span>-->
-            <a class="noselect pull-right" onclick="onclickPrev()">Prev</a> </td>
+            <!--<td><a class="noselect pull-right" onclick="onclickNext()" style="margin-left: 12px;">Next</a>
+            <span class="noselect pull-right" style="margin-left: 12px;"><span id="current-work"></span>/<span id="num-works"></span></span>
+            <a class="noselect pull-right" onclick="onclickPrev()">Prev</a> </td>-->
         </tr>
       </nav>
   </header>
 </section>
-<!-- header top section --> 
+<!-- header top section -->
 <!-- header content section -->
 <!--
 <section id="works-info" class="section">
@@ -49,41 +50,50 @@
   </div>
 </section>
 -->
-<!-- header content section --> 
+<!-- header content section -->
 <!-- portfolio grid section -->
 <section id="work-detail">
   <div class="container">
     <div class="row">
       <div class="col-md-12 work-detail ">
         <div class="work-detail">
-            <!-- 1st -->
-            <img id="work1" style="margin:0" src="images/childhood/cover.png" class="img-responsive" alt=""> 
-            <!-- 2nd -->
+
+            <img id="work1" style="margin:0" src="images/childhood/cover.png" class="img-responsive" alt="">
+
             <div style="text-align: center; width: 100%;">
                 <canvas id="work2" id="work2" style="width: 100% !important;" data-processing-sources="processing-sketches/clock/clock.pde"></canvas>
             </div>
-            <!-- 3rd -->
-            <img id="work3" style="padding-top: 200px; float: right; width:50%" src="images/childhood/last-bus.jpg" class="img-responsive" alt=""> 
-            <!-- 4th -->
+
+            <img id="work3" style="padding-top: 200px; float: right; width:50%" src="images/childhood/last-bus.jpg" class="img-responsive" alt="">
+
+            <div id="work10" style="background: white; padding: 200px 0 100px">
+                <img style="margin: auto; width: 100%; " src="images/childhood/untitled.jpg" class="img-responsive" alt="">
+            </div>
             <div id="work4" style="background: white; margin-top: 600px; padding: 300px 0 100px">
                 <img style="margin:0; width: 300px; margin-left: 10%;" src="images/childhood/combustion-face.jpg" class="img-responsive" alt="">
             </div>
             <div id="work5" style="background: white; padding: 200px 0 100px">
                 <img style="margin: auto; width: 300px; " src="images/childhood/combustion-sky.png" class="img-responsive" alt="">
             </div>
-            
-            
-            
-            
+
+            <div id="work8" style="background: white; padding: 200px 0 100px">
+                <img style="margin: auto; width: 100%; " src="images/childhood/electronics.jpg" class="img-responsive" alt="">
+            </div>
+            <div id="work9" style="background: white; padding: 200px 0 100px">
+                <img style="margin: auto; width: 100%; " src="images/childhood/mirror.jpg" class="img-responsive" alt="">
+            </div>
+            <div id="work7" style="background: white; padding: 200px 0 100px">
+                <img style="margin: auto; width: 500px; " src="images/childhood/half.jpg" class="img-responsive" alt="">
+            </div>
         </div>
       </div>
     </div>
   </div>
 </section>
-<!-- portfolio grid section --> 
-    
+<!-- portfolio grid section -->
+
 <!-- footer section -->
-<footer class="footer" style="margin-top: 300px;" id="work6">
+<footer class="footer" id="work6">
   <div class="container">
     <div class="col-md-6 left">
       <div style="color: #b5b5b5; margin-left: 10%; text-align: left; padding-top: 50px;">
@@ -93,29 +103,29 @@
         3/<span class="work-list-title">The Last Bus</span>.<span class="work-list-media">Mixed media on paper</span>.<br>
         4/<span class="work-list-title">Combustion I</span>.<span class="work-list-media">Photography, Photoshop</span>.<br>
         5/<span class="work-list-title">Combustion II</span>.<span class="work-list-media">Photography, Photoshop</span>.<br>
-        6/<span class="work-list-title">Decay (Self Portrait)</span>.<span class="work-list-media">Mixed media on paper</span>. 
+        6/<span class="work-list-title">Decay (Self Portrait)</span>.<span class="work-list-media">Mixed media on paper</span>.
         </div>
     </div>
     <div class="col-md-6 right">
         <!-- 6th - last -->
         <div style="background: white;">
-            <img style="margin: auto; width: 315px; margin-right: 2%;" src="images/childhood/decay.jpg" class="img-responsive" alt=""> 
+            <img style="margin: auto; width: 315px; margin-right: 2%;" src="images/childhood/decay.jpg" class="img-responsive" alt="">
         </div>
 
       <p>© <a target="_blank" href="http://chunwang.me">Chun Wang</a> 2018 All rights reserved.</p>
     </div>
   </div>
 </footer>
-    
-<!-- JS FILES --> 
+
+<!-- JS FILES -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.min.js"></script>
-<script src="js/bootstrap.min.js"></script> 
-<script src="js/jquery.fancybox.pack.js"></script> 
-<script src="js/jquery.waypoints.min.js"></script> 
-<script src="js/retina.min.js"></script> 
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.fancybox.pack.js"></script>
+<script src="js/jquery.waypoints.min.js"></script>
+<script src="js/retina.min.js"></script>
 <script src="js/processing.js"></script>
-<script src="js/modernizr.js"></script> 
+<script src="js/modernizr.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
