@@ -1,5 +1,5 @@
 const MIN_WORK_INDEX = 1;
-const MAX_WORK_INDEX = 7;
+const MAX_WORK_INDEX = 10;
 var currentWorkIndex = MIN_WORK_INDEX;
 
 function onclickNext() {

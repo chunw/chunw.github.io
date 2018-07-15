@@ -1,4 +1,4 @@
-// Sketch One
+// Clock sketch
 var s = function( p ) { // p could be any variable name
   var x = 100;
   var y = 100;
@@ -43,7 +43,7 @@ var s = function( p ) { // p could be any variable name
 };
 var myp5 = new p5(s, 'work2');
 
-// Sketch Two
+// Cover Sketch
 var t = function( p ) {
   var adult1, adult2, bg;
   var myState = 12;
@@ -178,4 +178,4 @@ var t = function( p ) {
     }
   }
 };
-var myp5 = new p5(t, 'work3');
+var myp5 = new p5(t, 'work1');
