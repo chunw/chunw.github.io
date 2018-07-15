@@ -84,7 +84,7 @@ var t = function( p ) {
 
     switch(myState) {
     case -1:
-      p.image(adult2, 190, -220);
+      p.image(adult2, 190, -240);
       break;
 
     case 0:
