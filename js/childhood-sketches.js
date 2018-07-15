@@ -41,7 +41,7 @@ var s = function( p ) { // p could be any variable name
       p.pop();
   };
 };
-var myp5 = new p5(s, 'work2');
+var myp5 = new p5(s, 'work3');
 
 // Cover Sketch
 var t = function( p ) {
