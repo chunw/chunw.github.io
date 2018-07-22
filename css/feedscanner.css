@@ -1,0 +1,27 @@
+body {
+  background: #f3f3f3ff;
+}
+.col-md-12.work-detail{
+  padding: 2% 10%;
+}
+.section-header {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+.work-pic {
+  width: 100%;
+}
+.large {
+  font-size: 120%;
+}
+a {
+  text-decoration: underline;
+}
+.bold {
+  font-weight: bold;
+}
+#work1 {
+  width: 400px;
+  float: right;
+  margin-top: -91px;
+}
