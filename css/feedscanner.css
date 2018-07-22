@@ -8,6 +8,13 @@ body {
   margin-top: 12px;
   margin-bottom: 12px;
 }
+.has-caption {
+  margin-bottom: 10px !important;
+}
+.caption {
+  font-size: 90%;
+  text-align: center;
+}
 .work-pic {
   width: 100%;
 }
