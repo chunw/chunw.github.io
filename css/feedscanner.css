@@ -1,5 +1,7 @@
 body {
   background: #f3f3f3ff;
+  font-family: sans-serif;
+  padding-top: 20px;
 }
 .col-md-12.work-detail{
   padding: 2% 10%;
