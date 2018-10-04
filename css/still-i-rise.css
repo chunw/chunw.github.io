@@ -10,6 +10,9 @@ a:hover{color:#666; text-decoration:none;}
 a img {border:0;}
 hr {color: #fff; background-color: #999; height: 1px;}
 
+video {
+  width: 100%;
+}
 
 .menu { float:left;
 padding-left:15px;padding-top:30px;
