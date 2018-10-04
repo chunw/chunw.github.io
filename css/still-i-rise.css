@@ -1,0 +1,50 @@
+@charset "UTF-8";
+body {
+	margin:0px;
+	font-family:Verdana, Geneva, sans-serif;
+}
+a {color:#000066; text-decoration:none;}
+a:hover{color:#666; text-decoration:none;}
+
+a img {border:0;}
+hr {color: #fff; background-color: #999; height: 1px;}
+
+
+.menu { float:left;
+padding-left:15px;padding-top:30px;
+}
+.wrapper{width:960px;border-right:1px solid #F4F4F4;}
+.content{ margin:0px 50px 20px 320px;padding:80px 10px 80px 0;}
+
+
+.page_img{margin:10px 0 10px 0 ;}
+.text{
+	margin: 10px 0 10px 0;
+	color: #666;
+	font-size: 12px;
+	line-height: 15px;
+	text-align: left;
+}
+.text a{color:#000066; text-decoration:none;}
+.text a:hover{color:#666; text-decoration:underline;}
+.text .gray{color:#666;}
+.text .blue{color:#000066;}
+.text li{margin:0px 0;}
+.text_content{
+	color:#666;
+	font-size:12px;
+	line-height:15px;
+	margin-top: 10px;
+	margin-right: 0;
+	margin-bottom: 10px;
+	margin-left: 20px;
+}
+.heading{ padding: 20px 40px; font-size:20px; font-family:"Courier New", Courier, monospace;  font-weight:bold;color:#333;line-height:25px;}
+.heading .sub{font-size:15px; font-family:"Courier New", Courier, monospace; color:#666;line-height:20px;}
+.bodycopy{font-family:Verdana, Geneva, sans-serif; padding:10px 0px 10px 0px;list-style:decimal;}
+
+
+.level3-wrapper{width:900px;border-right:1px solid #F4F4F4; border-left:1px solid #F4F4F4; margin: 0 auto; padding: 0 20px;}
+
+.level3-content{ margin:0px auto 20px;padding:80px 10px 80px 0;}
+.level3-content .print{float:right; font-size:10px;font-family:"Courier New", Courier, monospace; font-weight:bold; }
