@@ -43,10 +43,25 @@ padding-left:15px;padding-top:30px;
 	margin-bottom: 10px;
 	margin-left: 20px;
 }
-.heading{ padding: 20px 16px 10px; font-size:20px; font-family:"Courier New", Courier, monospace;  font-weight:bold;color:#333;line-height:25px;}
-.heading .sub{font-size:15px; font-family:"Courier New", Courier, monospace; color:#666;line-height:20px;}
+.heading{ padding: 12px 16px 10px; font-size:20px; font-family:"Courier New", Courier, monospace;  font-weight:bold;color:#333;line-height:25px;}
+.heading .title {
+  line-height: 170%;
+}
+.heading .sub{
+  margin-top: 6px;
+  vertical-align: middle;
+  font-family: Verdana, Geneva, sans-serif;
+  font-weight: 400;
+  font-size:15px; font-family:"Courier New", Courier, monospace; color:#666;line-height:20px;
+}
+.heading .sub .icon {
+  width: 20px;
+  margin-bottom: 4px;
+  vertical-align: middle;
+}
 .bodycopy{font-family:Verdana, Geneva, sans-serif; padding:10px 0px 10px 0px;list-style:decimal;}
-
+.heading .sub .cc {font-size: 13px;font-weight: 400;}
+}
 
 .level3-wrapper{width:900px;border-right:1px solid #F4F4F4; border-left:1px solid #F4F4F4; margin: 0 auto; padding: 0 20px;}
 
