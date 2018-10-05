@@ -65,6 +65,9 @@ padding-left:15px;padding-top:30px;
 .footer {
   margin-top: 0 !important;
 }
+.footer p {
+  font-size: 12px !important;
+}
 
 .level3-wrapper{width:900px;border-right:1px solid #F4F4F4; border-left:1px solid #F4F4F4; margin: 0 auto; padding: 0 20px;}
 
