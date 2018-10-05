@@ -59,8 +59,11 @@ padding-left:15px;padding-top:30px;
   margin-bottom: 4px;
   vertical-align: middle;
 }
-.bodycopy{font-family:Verdana, Geneva, sans-serif; padding:10px 0px 10px 0px;list-style:decimal;}
 .heading .sub .cc {font-size: 13px;font-weight: 400;}
+}
+.bodycopy{font-family:Verdana, Geneva, sans-serif; padding:10px 0px 10px 0px;list-style:decimal;}
+.footer {
+  margin-top: 0 !important;
 }
 
 .level3-wrapper{width:900px;border-right:1px solid #F4F4F4; border-left:1px solid #F4F4F4; margin: 0 auto; padding: 0 20px;}
