@@ -11,21 +11,25 @@ a img {border:0;}
 hr {color: #fff; background-color: #999; height: 1px;}
 
 video {
-  width: 50%;
+  width: 100%;
 }
 
 @media only screen and (max-device-width: 768px) {
-  video {
-    width: 100%;
-  }
+
 }
 
+.section {
+  padding: 0 30px;
+  margin-bottom: 30px;
+}
 .menu { float:left;
 padding-left:15px;padding-top:30px;
 }
 .wrapper{width:960px;border-right:1px solid #F4F4F4;}
 .content{ margin:0px 50px 20px 320px;padding:80px 10px 80px 0;}
-
+.footer .cc {
+      text-align: left;
+}
 
 .page_img{margin:10px 0 10px 0 ;}
 .text{
@@ -49,7 +53,18 @@ padding-left:15px;padding-top:30px;
 	margin-bottom: 10px;
 	margin-left: 20px;
 }
-.heading{ padding: 12px 16px 14px; font-size:20px; font-family:"Courier New", Courier, monospace;  font-weight:bold;color:#333;line-height:25px;}
+.noir {
+  background: #080808;
+}
+.heading {
+  padding: 12px 0px 14px;
+  font-size:20px;
+  font-family:"Courier New", Courier, monospace;
+  font-weight:bold;
+  /*color: #333;*/
+  color: #FFF;
+  line-height:25px;
+}
 .heading .title {
   line-height: 170%;
 }
@@ -58,14 +73,18 @@ padding-left:15px;padding-top:30px;
   vertical-align: middle;
   font-family: Verdana, Geneva, sans-serif;
   font-weight: 400;
-  font-size:15px; font-family:"Courier New", Courier, monospace; color:#666;line-height:20px;
+  font-size:15px; font-family:"Courier New", Courier, monospace;
+  color:#888;
+  line-height:20px;
 }
 .heading .sub .icon {
   width: 20px;
   margin-bottom: 4px;
   vertical-align: middle;
 }
-.heading .sub .cc {font-size: 13px;font-weight: 400;}
+.heading .sub .cc {
+  font-size: 13px;
+  font-weight: 400;
 }
 .bodycopy{font-family:Verdana, Geneva, sans-serif; padding:10px 0px 10px 0px;list-style:decimal;}
 .footer {
