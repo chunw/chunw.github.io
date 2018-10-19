@@ -17,7 +17,9 @@ video {
 @media only screen and (max-device-width: 768px) {
 
 }
-
+hr {
+  border-top: 1px solid #999;
+}
 .section {
   padding: 0 30px;
   margin-bottom: 30px;
