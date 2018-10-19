@@ -82,7 +82,8 @@ padding-left:15px;padding-top:30px;
   line-height:20px;
 }
 .heading .sub .intro {
-  padding-bottom: 12px;
+  font-size: .9em;
+  padding-bottom: 8px;
 }
 .heading .sub .icon {
   width: 16px;
