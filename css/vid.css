@@ -81,6 +81,9 @@ padding-left:15px;padding-top:30px;
   color:#888;
   line-height:20px;
 }
+.heading .sub .intro {
+  padding-bottom: 12px;
+}
 .heading .sub .icon {
   width: 16px;
   margin-bottom: 4px;
