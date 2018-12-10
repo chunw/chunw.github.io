@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset='utf-8'/>
+      <title>2016 U.S. Fatal Car Accidents</title>
+      <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+      <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+      <script src="https://d3js.org/d3.v5.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/1.12.1/d3-annotation.min.js"></script>
+      <link rel="shortcut icon" href="images/carcrash/favicon.ico">
+      <link rel="stylesheet" href="css/carcrash_3dmap.css">
+      <link rel="stylesheet" href="css/carcrash_main.css">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/vega@4.3.0"></script>
+      <script src="https://cdn.jsdelivr.net/npm/vega-lite@3.0.0-rc8"></script>
+      <script src="https://cdn.jsdelivr.net/npm/vega-embed@3.20.0"></script>
+      <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'></script>
+      <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
+      <link rel='stylesheet' href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css'/>
+      <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
+   </head>
+  <body>
+
+    <!-- navbar -->
+    <div id="analysis-nav" style="display:none" data-spy="scroll" data-target="#analysis-nav" data-offset="20">
+      <div class="anatomy">
+        <div class="inline">
+          <div class="blockline">
+            <div class="icon-block">
+              <img class="icon" style="width: 43px;" src="images/carcrash/calendar.svg"/>
+              <a class="text active" href="#section-time">Time of Crash</a>
+            </div>
+            <div class="icon-block">
+              <img class="icon" src="images/carcrash/weather.svg"/>
+              <a class="text" href="#section-weather">Weather <br>Condition</a>
+            </div>
+            <div class="icon-block">
+              <img class="icon" src="images/carcrash/roadcondi.svg"/>
+              <a class="text" href="#section-road">Road <br> Condition</a>
+            </div>
+          </div>
+
+          <div class="blockline">
+            <div class="icon-block">
+              <img class="icon" src="images/carcrash/driv.svg"/>
+              <a class="text" href='#section-driver'>Driver <br>Behavior</a>
+            </div>
+            <div class="icon-block">
+              <img class="icon" style="height: 39px;" src="images/carcrash/passenger.svg"/>
+              <a class="text" href='#section-passenger'>Passenger <br>Behavior</a>
+            </div>
+            <div class="icon-block">
+              <img class="icon" style="width: 20px;" src="images/carcrash/pedestrain.svg"/>
+              <a class="text" href="#section-pedestrian">Pedestrian <br>Behavior</a>
+            </div>
+          </div>
+
+          <div class="blockline">
+            <div class="icon-block">
+              <img class="icon" style="height: 38px; width: 58px;" src="images/carcrash/vehicle.svg"/>
+              <a class="text" href="#section-vehicle">Vehicle <br>Condition</a>
+            </div>
+            <div class="icon-block" >
+              <img class="icon" style="width: 63px; padding-top: 4px;transform: scale(1.4);" src="images/carcrash/rescue.svg"/>
+              <a class="text" href="#section-rescue" style="margin-top: 10px;" >Rescue <br>Delay</a>
+            </div>
+            <div class="icon-block" >
+              <img class="icon"  style="width: 32px;" />
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HELP -->
+    <div id="tooltip-help">
+      <div class="g-item g-subhed ">
+
+        <div style="margin-top: 0px;">
+          <strong>Tip:</strong><br>Hover on
+          <span class="fake-tooltipped" >text of this color</span>
+          to view tooltip.
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main id="main" class="main" role="main">
+      <!-- HEADER -->
+      <h1 class="header story-heading interactive-headline">Lessons Learned From 2016<br>U.S. Fatal Car Crash Data</h1>
+      <div class="header interactive-byline">
+        <p class="byline-dateline">
+          <span class="byline">By <span class="byline-author">CHUN WANG, KEXIN YU</span></span>
+          <span class="dateline">Dec 5, 2018</span>
+        </p>
+      </div>
+
+      <!-- INTRO -->
+      <div class="g-item g-text ">
+        <p class="g-body">
+          Motor vehicle travel is a major means of transportation in the United States, yet for all its advantages,
+          each year fatal motor vehicle crashes in the U.S. lead to an estimated societal burden of more than
+          $230 billion from medical and other costs <a target="_blank" href="https://www.sciencedirect.com/science/article/pii/S0001457516303918">[1]</a>.
+          Motor vehicle crashes are also the leading cause of death for persons every age from 5 to 32 years old <a target="_blank" href="https://crashstats.nhtsa.dot.gov/Api/Public/ViewPublication/812499">[2]</a>.
+          In this project, we deep dived into the fatal car crash records in the U.S. in year 2016, collected by National Highway
+          Traffic Safety Administration (NHSTA) <a target="_blank" href="https://bigquery.cloud.google.com/dataset/bigquery-public-data:nhtsa_traffic_fatalities">[3]</a> and encoded using the government's
+          <a target="_blank" class="tooltipped" data-position="right" data-tooltip="<div class='custom-tooltip'>Fatality Analysis Reporting System is a nationwide census providing <br> NHTSA (National Highway Traffic Safety Administration), Congress <br> and the American public yearly data regarding fatal injuries suffered <br> in motor vehicle traffic crashes.<br><br>Click the link to view how data are encoded using the FARS system.</div>"
+          href="https://ire.org/media/uploads/files/datalibrary/samplefiles/DOT%20Fatality%20Analysis%20Reporting%20System%20-%20Simplified/USERGUIDE-2013.pdf">Fatality Analysis Reporting System</a>. By wielding this dataset and related research, we developed this report trying to thoroughly explore the top risk factors that are highly correlated to fatal motor vehicle crashes.
+
+
+          <!--
+          These reports focus on vehicles, drivers, passengers, pedestrians, and motorcyclists and use that to develop and refine countermeasures to deter unsafe behaviors and promote safe alternatives.
+          -->
+        </p>
+      </div>
+
+      <!-- Anatomy -->
+      <div class="g-item g-subhed ">
+        <h2 style=""><strong>Anatomy of a Car Crash</strong></h2>
+      </div>
+
+      <div class="g-item g-text ">
+
+        <div class="anatomy">
+          <div class="inline">
+            <div class="blockline">
+              <div class="icon-block">
+                <img class="icon" style="width: 43px;" src="images/carcrash/calendar.svg"/>
+                <div class="text">Time of Crash</div>
+              </div>
+              <div class="icon-block">
+                <img class="icon" src="images/carcrash/weather.svg"/>
+                <div class="text">Weather <br>Condition</div>
+              </div>
+              <div class="icon-block">
+                <img class="icon" src="images/carcrash/roadcondi.svg"/>
+                <div class="text">Road <br> Condition</div>
+              </div>
+            </div>
+
+            <div class="blockline" >
+              <div class="icon-block">
+                <img class="icon" style="height: 38px; width: 58px;" src="images/carcrash/vehicle.svg"/>
+                <div class="text">Vehicle <br>Condition</div>
+              </div>
+              <div class="icon-block">
+                <img class="icon" src="images/carcrash/driv.svg"/>
+                <div class="text">Driver <br>Behavior</div>
+              </div>
+              <div class="icon-block">
+                <img class="icon" style="height: 39px;" src="images/carcrash/passenger.svg"/>
+                <div class="text">Passenger <br>Behavior</div>
+              </div>
+            </div>
+
+            <div class="blockline" style="margin-left: 184px">
+              <div class="icon-block">
+                <img class="icon" style="width: 20px;" src="images/carcrash/pedestrain.svg"/>
+                <div class="text">Pedestrian <br>Behavior</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="inline" style="vertical-align: top; padding-top: 50px;">
+            <img class="icon" style="width:300px" src="images/carcrash/onroad.svg"/>
+          </div>
+
+          <div class="inline" >
+            <div class="icon-block" style="margin-top: 28px;  margin-left: -20px;">
+              <img class="icon" style="width: 98px;" src="images/carcrash/rescue.svg"/>
+              <div class="text" style="margin-top: -8px;">Rescue <br>Delay</div>
+            </div>
+          </div>
+
+          <div style="margin-left: 400px; margin-top: -10px;">
+            <div class="icon-block">
+              <img class="icon" style="width: 73px;" src="images/carcrash/crash.svg"/>
+            </div>
+
+            <div class="icon-block">
+              <img class="icon" style="padding-top: 20px; width: 250px;" src="images/carcrash/arrow.svg"/>
+            </div>
+
+            <div class="icon-block" style="    margin-top: -20px;">
+              <img class="icon"  src="images/carcrash/fatal.svg"/>
+              <div class="text">Fatalities <br> & Injuries</div>
+            </div>
+          </div>
+        </div>
+
+        <p class="g-body">
+            A motor vehicle crash results from a combination of factors related to the components of the system
+            comprising roads, the environment, vehicles and road users, and the way they interact.
+            Some factors, such as speeding and alcohol or drug impaired driving, contribute to the occurrence of a collision and are therefore part of crash causation. Other factors, such as old vehicles and unused restraints systems, aggravate the effects of the collision and thus contribute to trauma severity.
+            Some
+            causes are immediate, but they may be
+            underpinned by medium-term and long-term
+            structural causes. Identifying the top risk factors that contribute to fatal motor vehicle crashes is important in developing
+            interventions that can reduce the risks associated with those factors.
+            <br>
+            <br>
+        </p>
+      </div>
+
+      <!-- Analysis -->
+      <div id="section-collection">
+        <section id="section-time">
+            <div class="g-item g-subhed ">
+              <h2><strong>Time of Crash</strong></h2>
+            </div>
+
+            <div class="analysis">
+                <div class="row my-tabs">
+                  <div class="col s12">
+                    <ul class="tabs " >
+                      <li class="tab col s3"><a class="active" href="#timeTab1" style="width: 210px;">All Crashes</a></li>
+                      <li class="tab col s3"><a href="#timeTab2" style="width: 230px;">under Bad Lighting</a></li>
+                      <li class="tab col s3"><a href="#timeTab3" style="width: 245px;">under Adverse Weather</a></li>
+                    </ul>
+                  </div>
+                  <div id="timeTab1" class="col s12 my-tab">
+                    <div class="analysis">
+                      <div class="viz ">
+                        <div id="dangerousTime"></div>
+                        <p>Hover on circles to view number of crashes by month and hour.</p>
+                        <p class="method">
+                          <strong>Methodology:</strong> The size and color indicates crash frequency during the given hour in the given month.
+
+                        </p>
+                        <div class="">
+                          Fatal crashes mostly happen in rush hours with busy traffic caused by commuting, e.g. from <b>17:00 to 19:00</b>. Interestingly, they also tend to happen more frequently in winter seasons, e.g. <b>November and Decemeber</b>, where adverse weather conditions (e.g. snow on the East Coast and rain on the West Coast) increase risks. Click on <span style="color:#e36e68">UNDER ADVERSE WEATHER</span> tab to see details.
+
+                          <br><br>
+
+                            Note that we do not observe the same high frequency during rush hours in the morning. We further explored the type/level of light that existed at the time of the crash. Click on <span style="color:#e36e68">UNDER BAD LIGHTING</span> tab to see more details.
+
+
+                        </div>
+                      </div>
+                      <div class="text">
+
+                      </div>
+                    </div>
+                  </div>
+                  <div id="timeTab2" class="col s12 my-tab">
+                    <div class="analysis">
+                      <div class="viz ">
+                        <div id="light"></div>
+                        <p>Hover on circles to view number of crashes occurred under bad lighting conditions by month and hour.</p>
+                        <p class="method">
+                          <strong>Methodology:</strong> This plot highlights fatal crashes that happened in a dark and unlighted environment.
+                        </p>
+                        <div class=""><b>Bad light condition</b> appears to be a risk factor during evening rush hours highly correlated with fatal car crashes: what account for
+                          the darker colors in evening and early morning hours also emerge in the <span style="color:#e36e68">ALL CRASHES</span> chart.
+                          Due to the changing length of daylight, we see a bell shaped curve: the "dangerous" period starts early and lasts longer in winter, but starts late and lasts shorter in summer.
+
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div id="timeTab3" class="col s12 my-tab">
+                    <div class="analysis">
+                      <div class="viz ">
+                        <div id="weatherTime"></div>
+                        <p>Hover on circles to view number of crashes under adverse weather by month and hour.</p>
+                        <p class="method">
+                          <strong>Methodology:</strong> Weathers other than clear or cloudy  (i.e. rain, sleet, snow, fog, severe crosswinds, or blowing snow/sand/debris) are considered as adverse weathers.
+
+                        </p>
+                        <div class="">
+                          Weather-related accidents prevail particularly in December, which matches the pattern in the <span style="color:#e36e68">ALL CRASHES</span> chart.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+        <section id="section-weather">
+            <div class="g-item g-subhed ">
+              <h2><strong>Weather Condition</strong></h2>
+            </div>
+            <div class="analysis">
+              <div class="viz ">
+                <div id="weather"></div>
+                <p>Hover on circles to view fatal crash counts by states.</p>
+                <p class="method">
+                  <strong>Methodology:</strong> Occurrence of various adverse weather conditions that existed at the time of the crash is counted for each state.
+                  Weathers other than clear or cloudy  (i.e., rain, sleet, snow, fog, severe crosswinds, or blowing snow/sand/debris) are considered as adverse weathers.
+
+                  <div class="">
+                       Approximately 21% of all vehicle crashes are weather-related and on average, nearly 5,000 people are killed in weather-related crashes each year <span class="inline-source">(source: Ten-year averages from 2007 to 2016 analyzed by Booz Allen Hamilton, based on NHTSA data)</span>.
+                       Weather acts through visibility impairments, precipitation, high winds, and temperature extremes to affect driver capabilities, vehicle performance (i.e. traction, stability and maneuverability), pavement friction, roadway infrastructure, crash risk, traffic flow, and agency productivity.
+                      <!--See <a href="https://ops.fhwa.dot.gov/weather/q1_roadimpact.htm" target="_blank">NHSTA's summary</a> of how weather impacts various weather events on roadways, traffic flow, and operational decisions.
+                      -->
+
+The vast majority of most weather-related crashes happen on wet pavement and during <b>rainfall</b>: 70% on wet pavement and 46% during rainfall.</li>
+
+                </div>
+              <div class="text">
+              </div>
+            </div>
+        </section>
+
+        <section id="section-road">
+            <div class="g-item g-subhed ">
+              <h2><strong>Road Condition</strong></h2>
+            </div>
+
+            <div class="g-item g-subhed ">
+                <h6><strong>The Most Dangerous Highway</strong></h6>
+            </div>
+            <div class="analysis">
+              <div class="viz ">
+                <div id="fatalityRateByCounty"></div>
+                <p>Hover on map to view details about county, population and fatalities per 100,000 population.</p>
+                <p class="method">
+                  <strong>Methodology:</strong> The fatality rate is computed as <span class="formula">{[total fatalities in car accidents in year 2016] / [county population]} × 100%</span>.
+                    County population data
+                  <a target="_blank" href="https://en.wikipedia.org/wiki/List_of_United_States_counties_and_county_equivalents"
+                  >source</a>.</p>
+                </p>
+
+                <div >
+                  <br>
+                  One notable outlier from this map is <b> Loving, Texas</b>, a sparsely populated county with a soaring fatality rate of 3.158%.
+                  The culprit is one West Texas highway that is notorious for being dangerous -
+                  Highway 285, which runs from New Mexico right on through the small town of Fort Stockton.
+
+                  According to the New Mexico Department of Transportation, there were another three fatal crashes from the Texas state line to Loving in <a target="_blank" href="https://www.yourbasin.com/news/dangerous-drive-on-highway-285/862459415">2017</a>.
+                  <span class="quote">
+                  "Because there are so many trucks coming off the side roads and you know they don't see everybody and they will just pull off,"</span> said Sherrif Cliff Harris,<span class="quote">"Or pull right in front of people sometimes."
+                  </span>
+                   It was said the construction zones in Fort Stockton
+                   <span class="quote">"are not going anywhere anytime soon."</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!--
+            <div class="g-item g-subhed ">
+                <h6><strong>Traffic Controls Absence in Rural Area</strong></h6>
+
+              <div class="analysis">
+                <div class="viz ">
+                  <div id="controlRural"></div>
+                  <p>Hover on circles to view details.</p>
+                  <p class="method">
+                    <strong>Methodology:</strong> Functioning ratio is computed as the fraction of crashes in which the traffic controls performed properly and absent ratio is the fraction of crashes in which the traffic controls were missing.
+                  </p>
+
+                  <div class="">
+                  </div>
+                </div>
+                <br>
+                <div class="text">
+                  Kentucky had the most dependable traffic control infrastructure in its rural areas.
+                </div>
+              </div>
+
+              <div class="g-item g-subhed ">
+                  <h6><strong>Traffic Controls Absence in Urban, Local Area</strong></h6>
+                </div>
+                <div class="analysis">
+                  <div class="viz ">
+                    <div id="controlLocal"></div>
+                    <p>Hover on circles to view details.</p>
+                    <p class="method">
+                      <strong>Methodology:</strong> Same ratios are computed for crashes that happened in urban, local areas.
+                    </p>
+
+                    <div class="">
+                    </div>
+                  </div>
+                  <br>
+                  <div class="text">
+                    For urban local areas, control conditions were much worse in Mississippi, Tennessee and Arkansas.
+                  </div>
+                </div>
+            </div>
+          -->
+        </section>
+
+        <section id="section-driver">
+            <div class="g-item g-subhed ">
+              <h2><strong>Driver Behavior</strong></h2>
+            </div>
+
+            <div class="g-item g-subhed ">
+              <h6><strong>Driver Circumstances</strong></h6>
+            </div>
+            <div class="analysis">
+              <div class="viz has-annotation">
+                <div class="annotation" style="right: 205px;
+                  top: 25px;
+                  transform: rotate(62deg);">
+                  <img style="width: 20px;" src="images/carcrash/line.png">
+                </div>
+                <div class="annotation bordered" style="max-width: 100px;right: 100px;top: 35px;">
+                  <b>Alcohol</b> and <b>drug</b> stand out as the most common risk factor.
+                </div>
+                <div id="driverCircumstance"></div>
+                <p>Hover on bars to view crash counts by circumstances.</p>
+                <p class="method">
+                  <strong>Methodology:</strong> Circumstances that may have contributed to a crash include distraction, driver's physical impairment, alcohol/drug influence, and impediments to the driver's visual field.
+                </p>
+              </div>
+              <div class="text">
+              </div>
+            </div>
+
+            <p class='g-body'>
+            Alcohol and drugs usage is highly risky for both drivers and pedestrains (click on tabs to see how they correlate to fatality risk).
+            <b>Avoid alcohol and drugs</b> when walking and driving; they impair your judgment and coordination.
+            </p>
+
+            <div class="analysis">
+              <div class="row my-tabs">
+                <div class="col s12">
+                  <ul class="tabs ">
+                    <li class="tab col s3"><a class="active" href="#test1">Alcohol</a></li>
+                    <li class="tab col s3"><a href="#test2">Drugs</a></li>
+                  </ul>
+                </div>
+                <div id="test1" class="col s12 my-tab">
+                  <div class="g-item g-subhed ">
+                    <h6><strong>Alcohol-Impaired Driving</strong></h6>
+                  </div>
+                  <div class="analysis">
+                    <div class="viz ">
+                      <div id="alcohol"></div>
+                      <p>Hover on bars to view injury counts.</p>
+
+                    </div>
+
+                    <div class="text">
+
+                    </div>
+                  </div>
+                </div>
+                <div id="test2" class="col s12 my-tab">
+                  <div class="g-item g-subhed ">
+                    <h6><strong>Drug-Impaired Driving</strong></h6>
+                  </div>
+                  <div class="analysis">
+                    <div class="viz ">
+                      <div id="drug"></div>
+                      <p>Hover on bars to view injury counts.</p>
+
+                    </div>
+                    <div class="text">
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+
+            <div class="g-item g-subhed ">
+              <h6><strong>Speeding</strong></h6>
+            </div>
+
+            <p class='g-body'>
+              Speeding endangers everyone on the road: According to NHSTA, for more than two decades,
+              speeding has been involved in approximately one-third of all motor vehicle fatalities.
+              In 2016,
+            </p>
+            <div class="my-list g-body">
+              <ul>
+                <li>
+                  Speeding killed 10,111 people, accounting for more than a quarter (27%) of all traffic fatalities.
+                </li>
+                <li>
+                  37% percent of all speeding drivers were alcohol-impaired in fatal crashes.
+                </li>
+              </ul>
+           </div>
+           <div class="analysis">
+               <div class="viz ">
+                 <div id="commonCausesWithSpeedingHighlighted"></div>
+               </div>
+           </div>
+            <p class="g-body">
+              How much does speeding have an impact on fatality risk of the vehicle occupants?
+            </p>
+            <div class="analysis">
+              <div class="viz ">
+                <div id="overspeed"></div>
+                <p>Hover on circles to view crash counts and average overspeeding amount (MPH) for the selected overspeed range.</p>
+                <p class="method">
+                  <strong>Methodology:</strong>
+                  The overspeeding amount of a vehicle is computed as <span class="formula">{[vehicle travel speed] - [road speed limit]}</span> at the time of crash.
+                  The average fatality percentage for a overspeeding range is computed as <span class="formula">{[fatality in vehicle] / [all occupants in vehicle]} × 100% </span>averaged over all vehicles involved in fatal crashes in that overspeeding range at the time of crash.</p>
+                </p>
+              </div>
+              <div class="text">
+                There is a clear trend that as vehicle's overspeeding amount goes up, there is also a higher fatality risk associated for vehicle occupants.
+              </div>
+            </div>
+
+            <p class='g-body'>
+              Speeding tickets are the most commonly used tool to deter speeders,
+              but do they actually have an impact on driver's behaviors (and reducing car crashes related to speeding)?
+            </p>
+            <div class="analysis">
+              <div class="viz has-annotation">
+                <div class="annotation" style="left: 278px;
+                    top: 17px;
+                    transform: rotate(90deg);">
+                  <img style="width: 16px;" src="images/carcrash/arrow_annotation.png"/>
+                </div>
+                <div class="annotation" style="right: 24px;
+                  top: 77px;
+                  transform: rotate(41deg);">
+                  <img style="width: 18px;" src="images/carcrash/line.png">
+                </div>
+                <div class="annotation" style="right: 46px;
+                  top: 77px;
+                  transform: rotate(41deg);">
+                  <img style="width: 18px;" src="images/carcrash/line.png"/>
+                </div>
+                <div class="annotation" style="right: 75px;
+    top: 134px;
+    transform: rotate(90deg);">
+                  <img style="width: 18px;" src="images/carcrash/line.png"/>
+                </div>
+                <div class="annotation" style="right: 61px;
+    top: 150px;
+    transform: rotate(90deg);">
+                  <img style="width: 18px;" src="images/carcrash/line.png"/>
+                </div>
+                <div class="annotation bordered" style="max-width: 100px;
+                right: -80px;
+                top: 80px;">
+                   It is a Class 3 Misdemeanor to operate a motor
+                   vehicle either greater than 15 MPH above the posted speed
+                   limit. <strong>§ 20-141</strong>
+                </div>
+                <div class="annotation bordered" style="max-width: 100px; right: 0; top: 171px;">
+                   A person will be charged with reckless driving when the speeding
+                   exceeds 25 MPH above the speed limit. <strong>§ 20-141</strong>
+                </div>
+                <div class="annotation" style="left: 378px;
+    top: 316px;
+    transform: rotate(180deg);">
+                  <img style="width: 18px;" src="images/carcrash/line.png"/>
+                </div>
+                <div class="annotation bordered" style="max-width: 100px;
+                left: 371px;
+    top: 263px;">
+                   Still 50 fatal crashes involved reckless drivers who have previously received 3 speeding citations.
+                </div>
+
+                <div id="speeding"></div>
+                <p>Hover on bars to view details.</p>
+                <p class="method">
+                  <strong>Methodology:</strong> This visualization relates the vehicle's overspeeding amount at the time of crash to the driver’s past speeding convictions.
+                  We trace the change in ratio of drivers involved in fatal crashes by the number of previous (within five years from the crash date) speeding convictions of the driver.
+                </p>
+
+                <div class="">
+                  Overall, it can be observed from the visualization above that
+                  speeding citations are effective at reducing the likelihood of
+                  receiving subsequent speeding tickets, as significant drops in number of fatal crashes
+                  for drivers who have previously received speeding citations.
+                  However, while the total speeding-related crash count sees a downward trend,
+                  the absolute crash count
+                  remains significant, especially for reckless speeders,
+                  suggesting that speeding citations have limited effects on
+                  deterrence in the context of the current traffic enforcement system.
+                </div>
+              </div>
+              <div class="text">
+              </div>
+            </div>
+        </section>
+
+        <section id="section-passenger">
+            <div class="g-item g-subhed ">
+              <h2><strong>Passenger Behavior</strong></h2>
+            </div>
+
+            <div class="g-item g-subhed ">
+              <h6><strong>Restraint System Use</strong></h6>
+            </div>
+            <p class="g-body">
+              Of the 23,714 passenger vehicle occupants killed in 2016, there were 11,282
+              (48%) who were restrained and 10,428 (44%) who were unrestrained at the time of the crashes.
+              Restraint use was not known for the remaining 2,004 (8%) of the occupants.
+              For passenger vehicle occupants involved in fatal crashes in 2016,
+              nearly half of those who were killed were unrestrained in the crash,
+              compared to only 14 percent of those that survived.
+            </p>
+            <div class="analysis">
+              <div class="viz ">
+                <div id="passengerRestraintUse"></div>
+                <p>Hover on bars to view injury counts.</p>
+                <p class="method">
+                  <strong>Methodology:</strong>
+                  The data describes restraint usage of passengers of a motor vehicle in-transport.
+                </p>
+                <div class="">
+                </div>
+              </div>
+            </div>
+            <div class="analysis">
+              <div class="viz ">
+                <div id="ejection"></div>
+                <p>Hover on bars to view injury counts.</p>
+                <p class="method">
+                  <strong>Methodology:</strong> The ejection scenario describes the ejection status and degree of ejection for this person, excluding motorcycle occupants.
+                </p>
+                <div>
+                  Ejection refers to occupants being totally or partially thrown from the vehicle as a result of an impact or rollover. Ejection from the vehicle is one of the most injurious events that can happen to a person in a crash. Seat belts are very effective in preventing total ejections; in 2016 only 1 percent of all passenger vehicle occupants (those killed as well as survivors) in fatal crashes reported to have been using restraints were totally ejected, compared to 29% of those unrestrained.
+                </div>
+              </div>
+            </div>
+
+            <div class="g-item g-subhed ">
+              <h6><strong>Seating Position</strong></h6>
+            </div>
+            <p class="g-body">
+              Among all vehicle occupants, people riding on vehicle exterior
+              have the highest fatality rate, followed by passengers sitting in cargo
+              areas or trailing unit, a result from lacking safety protection measures.
+              Inside the vehicle, seats in the front row (Front Seat, Second Seat positions)
+              are shown to be more dangerous than seats in
+              the back row (Third Seat, Fourth Seat positions).
+            </p>
+            <div class="analysis">
+              <div class="viz">
+                <div id="seatingposition"></div>
+                <p>Hover on bars to view injury counts.</p>
+              </div>
+              <div class="text">
+              </div>
+            </div>
+
+
+        </section>
+
+        <section id="section-pedestrian">
+            <div class="g-item g-subhed ">
+              <h2><strong>Pedestrian Behavior</strong></h2>
+            </div>
+            <p class="g-body">In 2016,
+
+              <br>
+              •  5,987 pedestrians were
+              killed in traffic crashes,
+              accounting for 16% of all
+              traffic fatalities.
+              <br>
+              • On average, a pedestrian was
+              killed in
+              traffic crashes nearly every 1.5 hours.
+            </p>
+            <div class="analysis">
+                <div class="viz ">
+                  <div id="commonCausesWithPedestrainsHighlighted"></div>
+                </div>
+            </div>
+            <div class="analysis">
+                <div class="viz has-annotation">
+                  <div class="annotation" style="right: 179px;
+                    top: 129px;
+                    transform: rotate(32deg);">
+                    <img style="width: 18px;" src="images/carcrash/line.png">
+                  </div>
+                  <div class="annotation bordered" style="    max-width: 100px;
+                    right: 76px;
+                    top: 125px;">
+                    <b>Pedestrians</b>, along with cyclists and persons on personal conveyances,
+                    are one of the road user groups with the highest fatality risks in road traffic crashes.
+                  </div>
+                  <div id="pedestrain"></div>
+                  <p>Hover on bars to view injury counts.</p>
+
+                <div class="text">
+
+                </div>
+              </div>
+            </div>
+            <div class="annotation" style="    right: 40px;
+              font-size: 12px;
+              padding-top: 16px;
+              font-family: inherit;">
+              See <a target="_blank" href="https://www.nhtsa.gov/road-safety/pedestrian-safety">
+              Pedestrian Safety Tips from NHSTA</a>.
+            </div>
+
+            <p class='g-body'>
+              Below we show how the number of fatal crashes correlate to pedestrian actions immediately prior to
+              the crash and how the actions relate to the orientation of their collision with respect to the striking vehicle.
+            </p>
+
+            <div class="analysis">
+              <div class="viz has-annotation">
+                <div class="annotation" style="right: 250px;
+                  top: 45px;
+                  transform: rotate(20deg);">
+                  <img style="width: 20px;" src="images/carcrash/line.png">
+                </div>
+                <div class="annotation bordered" style="max-width: 132px; right: 190px;top: 10px;">
+                  Beware the dangers of pulling over on the side of the road when your car get disabled!
+                </div>
+                <div class="annotation bordered highlight" style="
+                  background:red; width: 550px; height: 30px; opacity: 0.12;
+                  right: 180px; top: 58px;">
+                </div>
+                <div id="ped"></div>
+                <p>Hover on circles to view details.</p>
+              </div>
+
+            </div>
+            <p class='g-body'>
+              Data show that far more people involved in fatal crashes when dealing with <b>disabled vehicles</b> (see recounts of such incidents <a href="https://toronto.citynews.ca/2007/08/13/what-should-you-do-if-your-car-breaks-down-on-the-highway/" target="_blank">here</a>, <a href="https://www.civtrial.com/blog/beware-the-dangers-of-pulling-over-on-the-side-of-the-road/">here</a> and
+              <a href="https://www.northjersey.com/story/news/morris/rockaway-township/2017/07/05/vehicle-disabled-highway-dont-get-out/453784001/">here</a>).
+              Do you know what to do if your vehicle becomes disabled on a highway?
+              Experts offered advise on how to remain safe during a roadside emergency.
+
+<span class="quote">"You are better protected in the car than anywhere else,"</span>
+said Cathleen Lewis, director of Public Affairs and Government Relations for the
+Northeast division of AAA.
+  <br><br>
+  <span class="quote">
+  "If possible, get off the highway before stopping,"</span> said Lt. Theodore Schafer of the New Jersey State Police.
+  <span class="quote">"Is it worth you protecting the rim on your car and pulling over in a dangerous spot versus possibly damaging the rim and making yourself safe? Try to get far enough out of the way and off the main roads so that you won’t be an obstacle for other cars."</span><br><br>
+
+
+  Both experts agree that the best thing to do is call 911. Don’t be shy about it.
+
+ <span class="quote">"There seems to be a misconception that we will be upset with you if you call 911,"</span> Schafer said, <span class="quote">"If your car is broken down on the side of the road to us that constitutes an emergency that requires assistance, so absolutely call 911."</span>
+
+            </p>
+
+
+        </section>
+
+        <section id="section-vehicle">
+            <div class="g-item g-subhed ">
+              <h2><strong>Vehicle Condition</strong></h2>
+            </div>
+            <p class="g-body">
+              We investigated how passenger
+              vehicle occupant fatality correlates to various vehicle
+              conditions in fatal crashes.
+            </p>
+            <!--
+            <div class="analysis">
+              <div class="row my-tabs">
+                <div class="col s12">
+                  <ul class="tabs ">
+                    <li class="tab col s3"><a class="active" href="#modelyeartab">Model year</a></li>
+                    <li class="tab col s3"><a href="#modelagetab">vehicle age</a></li>
+                  </ul>
+                </div>
+                <div id="modelyeartab" class="col s12 my-tab">-->
+                  <div class="g-item g-subhed ">
+                    <h6><strong>Vehicle Model Year</strong></h6>
+                  </div>
+                  <div class="analysis">
+                    <div class="viz ">
+                      <div id="vehicleModelYear"></div>
+                      <p>Hover on circles to view details.</p>
+                      <p class="method">
+                        <strong>Methodology:</strong> The average fatality percentage for a vehicle model year is computed as <span class="formula">{[fatality in vehicle] / [all occupants in vehicle]} × 100% </span>averaged over all vehicles of that model year involved in fatal car crashes.</p>
+                      </p>
+                    </div>
+                    <div class="text">
+                      A higher proportion of the occupants of <b>older</b> model-year vehicles suffered fatality or a fatal injury.
+                    </div>
+                  </div>
+                <!--</div>
+
+                <div id="modelagetab" class="col s12 my-tab">-->
+                  <div class="g-item g-subhed ">
+                    <h6><strong>Vehicle Age</strong></h6>
+                  </div>
+                  <div class="analysis">
+                    <div class="viz">
+                      <div id="vehicleAge"></div>
+                      <p>Hover on circles to view details.</p>
+                      <p class="method">
+                        <strong>Methodology:</strong> The age of a vehicle is measured by subtracting the vehicle model year from the calendar year at the time of the crash (vehicle whose age was calculated to be -1 was recoded to be age 0). <br>
+                        The average fatality percentage for a vehicle age is computed as <span class="formula">{[fatality in vehicle] / [all occupants in vehicle]} × 100% </span>averaged over all vehicles of that vehicle age involved in fatal car crashes.</p>
+                      </p>
+                    </div>
+                    <div class="text">
+                      There is a trend that the proportion who were fatally injured increases with <b>vehicle age</b>.
+                    </div>
+                  </div>
+                <!--
+                </div>
+              </div>
+            </div>-->
+            <p class="g-body">
+              The analysis shows that among all passenger vehicle (passenger cars, SUVs, pickup trucks or vans) occupants involved in a fatal crash, the proportion who were fatally injured increases with <b>vehicle age</b>, i.e., the proportion was higher among occupants of older vehicles as compared to the occupants of newer vehicles. Also, the proportion of occupants who were fatally injured was higher among occupants of older model year vehicles as compared to the occupants of newer model year vehicles.<br><br>
+              The improved quality of cars is a bit of a double-edged
+              sword when it comes to the age issue.
+              As cars get better on multiple fronts, such as
+              safety technology and crashworthiness, they also
+              become more reliable and longer lasting, leading to
+              Americans driving cars until they're much older and
+              pushing the average age of a car in the U.S. up to
+              11.6 years at last count. Despite these gains in car quality,
+              the older a car gets, the less reliable and less safe it becomes.
+
+              <br><br>
+
+              NHTSA has released a <a href="https://www.nhtsa.gov/sites/nhtsa.dot.gov/files/documents/13423-vehicletechguide-4x6-brochure_2pagespread_042418_v5-tag.pdf" target="_blank">shopping guide</a>
+              to help consumers make sense of the myriad vehicle safety and driver assistance
+              systems available on modern cars.
+            </p>
+
+            <div class="g-item g-subhed ">
+              <h6><strong>Airbag Deployment</strong></h6>
+            </div>
+            <div class="analysis">
+              <div class="viz ">
+                <div id="airbagDeployment"></div>
+                <p>Hover on bars to view details.</p>
+
+                <div class="">
+                  <!--
+                  While we had expected lower fatality rate associated with airbags deployed,
+                  on the surface the data seem to show otherwise. Our hypothesis for this pattern
+                  is that both air bags are generally designed to deploy only in moderate to severe crashes,
+                  so when the airbags are observed to be deployed, we can assume that the crash is
+                  much more severe than when airbags are not deployed and is inherently much
+                  more dangerous. Hence it's not a fair conclusion from this chart that airbags
+                  are not effective. In fact, NHTSA estimated [3] that 2,756 lives were saved by frontal air bags in 2016. This visualization is not to show that airbags are useless in terms of protecting vehicle occupants safety. Rather, a fair conclusion is when an airbag is observed to be deployed during a car crash, it increases the odds of observing a fatality as well, hence airbag deployment can be used as an indicator of the crash severity (correlation not causation).
+
+
+                  On the surface, it seems that the portion of fatal injuries are
+                  higher in scenarios where the airbag is deployed than when it is not.
+                  Keep in mind though, that frontal and side air bags
+                  are generally designed to deploy in moderate to severe crashes
+                  (may deploy in a minor crash).  -->
+
+                  On the surface, the data deviates from our expectation that
+                  airbags deployed are associated with lower fatality rate. Our hypothesis for this
+                  pattern is that airbags are generally designed to deploy only in moderate
+                  to severe crashes, therefore when the airbags are observed to be deployed,
+                  we can assume that the crash is much more severe than when airbags
+                  are not deployed. If factoring in crash severity,
+                  airbags may have been effective in lowering the fatality risk
+                  of vehicle occupants in severe crashes.
+                  In fact, <a href="https://crashstats.nhtsa.dot.gov/Api/Public/ViewPublication/812494"
+                  target="_blank"> NHTSA estimated </a> that 2,756 lives were saved by
+                  frontal air bags in 2016.
+
+                  <br><br>
+                  It is important, however, to follow guidance on how to safely position yourself and your passengers,
+                  as well as young ones in car seats and booster seats to prevent injury from air bags in a crash.
+
+                  Generally, when there is a moderate to severe crash, a signal is sent from the air bag system's electronic control unit to inflate the air bag within the blink of an eye (less than 1/20th of a second). Because air bags deploy very rapidly, serious or sometimes fatal injuries can occur if the driver or passenger is too close to – or comes in direct contact with – the air bag when it first begins to deploy.
+                  Side-impact air bags inflate even more quickly since there is less space between the driver or passengers and the striking object, whether the interior of the vehicle, another vehicle, a tree, or a pole.
+                  See more info on airbag-related fatality
+                  <a target="_blank" href="https://www.nhtsa.gov/equipment/air-bags">here</a>,
+                  <a href="https://www.annemergmed.com/article/S0196-0644(10)00101-0/pdf" target="_blank">here</a>,
+                  and <a target="_blank" href="https://www.nhtsa.gov/sites/nhtsa.dot.gov/files/18esv-000299.pdf">here</a>
+                  .
+                <br><br>
+                <b>Vehicle Occupant Satety Tips:</b>
+                <div  class="my-list">
+                <ul>
+                  <li>
+                      Sit as far back from the steering wheel or dashboard as possible and using seat belts help prevent drivers and passengers from being "too close" to a deploying frontal air bag. This is why rear-facing car seats should not be placed in front of an active air bag, and children under 13 should be seated in the back seat.
+                  </li>
+                  <li>
+                      Always buckle your seat belt. The seat belt is the single most effective vehicle safety technology. Air bags are supplemental protection and are designed to work best in combination with seat belts.
+                  </li>
+
+                </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="g-item g-subhed ">
+            <h6><strong>Vehicle Body Type</strong></h6>
+          </div>
+          <p class="g-body">
+            We have also studied which vehicle body types render their occupants vulnerable to fatality risk in road traffic crashes.
+            It was observed that fatality risk varies widely based on vehicle body types, and notably, <strong>motorcycles (of all types) and snowmobiles</strong> occupants suffer higher fatality risk by a large margin. <strong>Trucks, vans, and buses</strong> have some of the lowest fatalities.
+            <br>
+            Click <a style="cursor:pointer;" onclick="onToggleBodyTypeData()">here</a> to compare how different vehicle body types relate to fatality risk below.
+          </p>
+          <div class="analysis" style="display:none" id="bodyTypeData">
+            <div class="viz">
+              <div id="vehicleBodyType"></div>
+              <p>Hover on bars to view details.</p>
+
+            </div>
+            <div class="text">
+
+            </div>
+          </div>
+        </section>
+
+        <section id="section-rescue">
+            <div class="g-item g-subhed ">
+              <h2><strong>Rescue Delay</strong></h2>
+            </div>
+
+              <div class="analysis">
+                  <div class="row my-tabs">
+                    <div class="col s12">
+                      <ul class="tabs ">
+                        <li class="tab col s3"><a class="active" href="#rescueUrbanTab">Urban Area</a></li>
+                        <li class="tab col s3"><a href="#rescueRuralTab">Rural Area</a></li>
+                      </ul>
+                    </div>
+                    <div id="rescueUrbanTab" class="col s12 my-tab">
+                      <div class="g-item g-subhed ">
+                        <h6><strong>Response Time in Urban Area</strong></h6>
+                      </div>
+                      <div class="analysis">
+                        <div class="viz has-annotation">
+                          <div class="annotation" style="right: 200px;
+                            top: 25px;
+                            transform: rotate(62deg);">
+                            <img style="width: 20px;" src="images/carcrash/line.png">
+                          </div>
+                          <div class="annotation bordered" style="    max-width: 115px;
+                            right: 215px;
+                            top: 20px;">
+                            Long delays in <b>Washington, Vermont and Virginia.</b>
+                          </div>
+                          <div class="annotation highlight bordered" style="
+                            max-width: 115px; background:red; width: 42px; height: 370px; opacity: 0.12;
+                            right: 159px; top: 15px;">
+                          </div>
+                          <div id="rescueUrban"></div>
+                          <p>Hover on bars to view average response time in urban area of each state.</p>
+                          <p class="method">
+                            <strong>Methodology:</strong> "crash2notification" tracks the time from the crash occurred to the emergency medical service was notified. "notification2arrival" tracks how long it took for the emergence medical service to arrive on the crash scene. "arrival2hospital" tracks how long it took for the emergence medical service to transport victims of the crash to the treatment facility. The time is averaged over all crashes that happened in the urban area of the given state.
+                          </p>
+                          <div class="">
+                            In Virginia, Kansas and Vermont, there existed noticeable delays between crashes and notification. In Oklahoma, the emergency service reacted relatively slowly. In Washington, transferring victims from the scene to the treatment facility was a long trip. Sadly, the state also has the longest total response time.
+                          </div>
+                        </div>
+                        <div class="text">
+
+                        </div>
+                      </div>
+                    </div>
+                    <div id="rescueRuralTab" class="col s12 my-tab">
+                      <div class="g-item g-subhed ">
+                        <h6><strong>Response Time in Rural Area</strong></h6>
+                      </div>
+                      <div class="analysis">
+                        <div class="viz ">
+                          <div id="rescueRural"></div>
+                          <p>Hover on bars to view average response time in rural area of each state.</p>
+                          <p class="method">
+                            <strong>Methodology:</strong> The time is averaged over all crashes that happened in the rural area of the given state.
+                          </p>
+                          <div class="">
+                              Overall, response time was <b>longer</b> in rural areas, which might be explained by the limited access to emergency services.
+                          </div>
+                        </div>
+                        <div class="text">
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+
+                <div class="g-item g-subhed ">
+                    <h6><strong>Response Time v.s. Emergency Medical Service (EMS) Facilities</strong></h6>
+                  </div>
+                  <div class="analysis">
+                    <div class="viz has-annotation">
+                      <div class="annotation" style="right: 322px;
+                        top: 30px;
+                        transform: rotate(35deg);">
+                        <img style="width: 20px;" src="images/carcrash/line.png">
+                      </div>
+                      <div class="annotation bordered" style="width:138px;
+                        right: 180px;
+                        top: 17px;">
+                        Fewer EMS stations per capita in states with long delay: <b>Washington, Vermont and Virginia</b> (<span style="color:#e36e68">red</span> circles).
+                      </div>
+                      <div id="rescueEMS"></div>
+                      <p>Hover on circles to view details.</p>
+                      <p class="method">
+                        <strong>Methodology:</strong> By combining <a target="_blank" href="https://hifld-geoplatform.opendata.arcgis.com/datasets?group_ids=c8d9db693a95479e80758ef9cd778d5e"
+                        >Homeland Infrastructure Foundation-Level Data (HIFLD)</a>
+                        and <a target="_blank" href="https://www.census.gov/data/tables/2017/demo/popest/state-total.html"> U.S. Census Bureau data</a>, we further relate response time to the per-capita number of emergency medical service stations which provide ambulances.
+                      </p>
+
+                      <div class="">
+                          In general, the response time decreases as the number of EMS stations increases and we immediately see that Washington has low number of EMS stations per capita. The HIFLD data also includes details on the facility conditions, such as the number of ambulances, the number of EMS members, level of professionalism etc., which are all factors that potentially contributed to the delay. We also found out that <b>Othello</b>, the city that reacted the slowest in Washington has no EMS station records according to the HIFLD data.
+                      </div>
+                    </div>
+                    <br>
+                    <div class="text">
+                    </div>
+                  </div>
+        </section>
+
+      </div>
+
+
+      <!-- 3D Map -->
+      <div class="g-item g-subhed " id="threedmap-header">
+        <h2 style="">
+          <strong>Further Exploration
+          </strong></h2>
+      </div>
+      <p class='g-body'>
+
+        Analyzing and visualizing the NHSTA traffic record dataset has been a challenging task:
+        the dataset consists of 20 data tables which collectively describe over 400
+        known attributes of 34,619 fatal motor vehicle crashes. Furthermore,
+        as a motor vehicle crash usually results from a combination of factors including
+        vehicles, road users, environment,  and the way they interact, it possess
+        challenges to underpin their individual influences in road traffic fatalities.
+
+        <br>  <br>
+        To overcome this shortcoming, we have built a <b>predictive model</b> using machine learning, based on our analysis, for predicting
+        a person's fatality risk in a road traffic crash scenario given input features
+        about this person, such as alcohol usage, seating position, person type and so on. We encourage interested readers
+        to play with <a target="_blank" href="https://colab.research.google.com/drive/1ukF799LA-K9qPdf2D89N8mM8UDu7RJK4#scrollTo=ITTmbrIIdFOY">our model <img style="width: 15px; margin-right: 4px; margin-top: -2px; vertical-align: middle;" src="images/carcrash/extern-link.svg"/></a>
+        and see how much changing a factor while keeping other variables controlled
+        will affect fatality risk quantitatively.
+        <br>  <br>
+
+        Due to the sheer volume of data present in the NHSTA dataset, our analysis is likely to
+        have overlooked some risk factors contributing to fatal car crashes.
+
+        Interested readers are encouraged to use the interactive <b>map of the U.S.</b> below to learn about case details of the fatal car crashes occurred in 2016 and filter records by selected attributes
+        <span>(<a target="_blank" href="/carcrash_3dmap.html">explore this map in fullscreen mode</a>
+        <img style="width: 15px; margin-right: 4px; margin-top: -2px; vertical-align: middle;" src="images/carcrash/extern-link.svg"/></span>).
+      </p>
+      <div class="threedmap-container">
+        <div class="threedmap" id='map' style="position: relative;"></div>
+        <div id='case-details' >
+          <div style="font-weight:bold">There were <span id="total_count">34619</span> fatal car accidents in 2016.</div>
+          <div class="small_link">Zoom in and click on <i id="red-dot" class="tiny material-icons">brightness_1</i> on the map to view case reports. </div>
+
+          <div class="small_link">Click on <i class="filter-icon tiny material-icons">find_in_page</i> (if available) in the report to filter the map by the same condition. </div>
+          <div class="active-filters-area">
+            <div class="active-filters-area-header">Active map filters: <a class="clear-filter-link small_link" onclick="onResetFilters()">clear filter</a>
+            </div>
+            <div id="active-filters"></div>
+          </div>
+          <div id="case-details-header">Case Report</div>
+          <div id="case-details-body"></div>
+        </div>
+      </div>
+
+    </main>
+
+
+    <!-- Javascripts -->
+    <script src="js/carcrash_main.js"></script>
+    <script src="js/carcrash_main-vega.js"></script>
+    <script src="js/carcrash_3dmap_init.js"></script>
+  </body>
+</html>
