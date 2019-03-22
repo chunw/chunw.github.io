@@ -15,7 +15,14 @@ video {
 }
 
 @media only screen and (max-device-width: 768px) {
-
+  video {
+    width: 100%;
+  }
+}
+@media only screen and (min-device-width: 1000px) {
+  video {
+    max-width: 1000px;
+  }
 }
 hr {
   border-top: 1px solid #999;
@@ -65,7 +72,6 @@ padding-left:15px;padding-top:30px;
   font-size:20px;
   font-family:"Courier New", Courier, monospace;
   font-weight:bold;
-  /*color: #333;*/
   color: #FFF;
   line-height:25px;
 }
