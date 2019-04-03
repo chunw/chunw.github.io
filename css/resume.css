@@ -14,7 +14,7 @@ body {
 
 #name {
     font-weight: 400;
-    font-family: 'Poiret One', sans-serif;
+    font-family: "Trebuchet MS", 'Poiret One', sans-serif;
     font-size: 30px;
     line-height: 0.9;
     margin-left: -3px;
@@ -24,7 +24,7 @@ body {
 #contact {
 	margin-top: 8px;
   font-weight: 100;
-  font-family: 'Poiret One', sans-serif;
+  font-family: "Trebuchet MS", 'Poiret One', sans-serif;
   font-size: 12px;
   line-height: 1.7;
 }
