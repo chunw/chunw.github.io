@@ -1,6 +1,9 @@
 body {
   padding: 20px;
 }
+.noir {
+  background: #080808;
+}
 h1.section-title {
   font-size: 40px;
 color: #2d3033;
@@ -69,9 +72,12 @@ text-align: left;
 }
 
 .other-block {
-  width: 600px;
   color: #2d3033;
   margin-top: 100px;
+}
+.other-block .inner {
+  width: 600px;
+  margin:auto;
 }
 .other-block ul {
   text-align: left;
