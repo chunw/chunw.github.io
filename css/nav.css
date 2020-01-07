@@ -43,6 +43,7 @@ h2.section-title {
   max-width: 50%;
   text-align: center;
   margin: auto;
+  margin-bottom: 12px;
 }
 .the-four-block {
   margin-top: 20px;
@@ -67,8 +68,9 @@ h2.section-title {
   text-align: right;
 }
 .the-four-block .block.amazon {
-  left: 369px;
-  top: 101px;
+  left: 373px;
+  top: 115px;
+  font-size: 0.9em;
   text-align: right;
 }
 .arrow-swirly {
