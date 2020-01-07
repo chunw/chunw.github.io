@@ -66,6 +66,18 @@ h2.section-title {
   top: 140px;
   text-align: right;
 }
+.the-four-block .block.amazon {
+  left: 369px;
+  top: 101px;
+  text-align: right;
+}
+.arrow-swirly {
+  position: absolute;
+  width: 41px;
+  transform: rotate(-30deg);
+  left: 456px;
+  bottom: 101px;
+}
 .the-four-block .block.apple {
   left: 560px;
   bottom: 33px;
