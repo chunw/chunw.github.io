@@ -5,6 +5,7 @@ body {
   background: #080808;
 }
 h1.section-title {
+  font-weight: bold;
   font-size: 40px;
   color: #2d3033;
 }
