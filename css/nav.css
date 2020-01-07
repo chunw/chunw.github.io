@@ -6,11 +6,11 @@ body {
 }
 h1.section-title {
   font-size: 40px;
-color: #2d3033;
+  color: #2d3033;
 }
 h2.section-title {
   font-size: 24px;
-color: #2d3033;
+  color: #2d3033;
 }
 .leftbar {
   position: absolute;
@@ -21,7 +21,7 @@ color: #2d3033;
 }
 .section h3 {
   font-size: 20px;
-color: #2d3033;
+  color: #2d3033;
 }
 .cover a {
   display: block;
@@ -40,8 +40,8 @@ color: #2d3033;
 }
 .section .desc {
   max-width: 50%;
-text-align: center;
-margin: auto;
+  text-align: center;
+  margin: auto;
 }
 .the-four-block {
   margin-top: 20px;
@@ -50,7 +50,7 @@ margin: auto;
 }
 .the-four-block .the-four-logo {
   width: 300px;
-      margin-top: 20px;
+  margin-top: 20px;
 }
 .the-four-block .block {
   position: absolute;
@@ -62,15 +62,14 @@ margin: auto;
 }
 .the-four-block .block.facebook {
   left: 74px;
-    top: 140px;
-text-align: right;
+  top: 140px;
+  text-align: right;
 }
 .the-four-block .block.apple {
   left: 560px;
-bottom: 33px;
-text-align: left;
+  bottom: 33px;
+  text-align: left;
 }
-
 .other-block {
   color: #2d3033;
   margin-top: 100px;
@@ -80,11 +79,11 @@ text-align: left;
   margin:auto;
 }
 .other-block ul {
-  text-align: left;
+    text-align: left;
     margin-left: 272px;
 }
 footer {
   position: absolute;
-bottom: 12px;
-right: 20px;
+  bottom: 12px;
+  right: 20px;
 }
