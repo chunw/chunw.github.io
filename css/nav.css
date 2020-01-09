@@ -20,6 +20,14 @@ h2.section-title {
 }
 .leftbar .nav-text {
 }
+.footnote {
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  text-align: right;
+  font-family: Arial;
+  font-size: 0.8em;
+}
 .section h3 {
   font-size: 20px;
   color: #2d3033;

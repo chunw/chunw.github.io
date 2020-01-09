@@ -65,7 +65,7 @@
             <a target="_blank" href="https://chunwang.me/2018/01/03/augmented-ping-pong/">Augmented Ping Pong</a>
             <a target="_blank" href="https://chunwang.me/2017/09/09/instagirls/">#Instagirls</a>
           </div>
-          <img class="the-four-logo" src="images/nav/the_four.png" class="img-responsive" alt="">
+          <img data-toggle="tooltip" data-trigger="hover" data-placement="right" title="Logo image from the New York Times Bestseller The Four: The Hidden DNA of Amazon, Apple, Facebook, and Google"class="the-four-logo" src="images/nav/the_four.png" class="img-responsive" alt="">
         </div>
 
         <div class="other-block  section">
@@ -96,16 +96,20 @@
           <h3><a href="https://chunwang.me">& more</a></h3>
           </div>
         </div>
+
+        </div>
       </main>
 
-      <footer class="mastfoot mt-auto">
-        <div class="inner">
-        </div>
-      </footer>
     </div>
 
     <!-- JS FILES -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script>
+      $(function () {
+        $('[data-toggle="popover"]').popover();
+      })
+    </script>
+
   </body>
 </html>
