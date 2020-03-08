@@ -77,9 +77,10 @@ h2.section-title {
   text-align: right;
 }
 .the-four-block .block.amazon {
-  left: 373px;
-  top: 115px;
-  font-size: 0.9em;
+  left: 385px;
+  top: 122px;
+  font-size: 0.8em;
+  color: gray;
   text-align: right;
 }
 .arrow-swirly {
