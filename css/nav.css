@@ -47,10 +47,11 @@ h2.section-title {
   margin-bottom: 12px;
 }
 .the-four-block {
+  z-index: 999;
   width: 800px;
   display: table-cell;
-    position: absolute;
-    left: 200px;
+  position: absolute;
+  left: 200px;
 }
 .the-four-block .the-four-logo {
   width: 300px;
