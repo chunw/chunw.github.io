@@ -1,17 +1,18 @@
 body {
   padding: 20px;
-  color: black;
+  background: #0e0e0e;
+  color: #bdbcbc;
 }
 .noir {
   background: #080808;
 }
 h1.section-title {
   font-size: 28px;
-  color: #2d3033;
+  color: #797b7d;
 }
 h2.section-title {
   font-size: 16px;
-  color: #2d3033;
+  color: #797b7d;
 }
 .footnote {
   position: absolute;
@@ -23,7 +24,7 @@ h2.section-title {
 }
 .section h3 {
   font-size: 16px;
-  color: #2d3033;
+  color: #797b7d;
 }
 .cover a {
   display: block;
@@ -51,11 +52,6 @@ h2.section-title {
   width: 800px;
   position: relative;
 }
-@media only screen and (max-width: 600px) {
-  .the-four-block {
-
-  }
-}
 .the-four-block .the-four-logo {
   width: 300px;
   margin-top: 20px;
@@ -77,7 +73,7 @@ h2.section-title {
   left: 385px;
   top: 122px;
   font-size: 0.8em;
-  color: gray;
+  color: #bdbcbc;
   text-align: right;
 }
 .arrow-swirly {
@@ -94,7 +90,7 @@ h2.section-title {
   text-align: left;
 }
 .other-block {
-  color: #2d3033;
+  color: #bdbcbc;
 }
 .other-block .inner {
   width: 600px;
