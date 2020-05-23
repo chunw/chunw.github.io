@@ -39,6 +39,7 @@ h2.section-title {
 }
 .section {
   margin:auto;
+  margin-bottom: 8vw;
 }
 .section .desc {
   max-width: 50%;
@@ -47,10 +48,13 @@ h2.section-title {
   margin-bottom: 12px;
 }
 .the-four-block {
-  z-index: 999;
   width: 800px;
-  display: table-cell;
-  position: absolute;
+  position: relative;
+}
+@media only screen and (max-width: 600px) {
+  .the-four-block {
+
+  }
 }
 .the-four-block .the-four-logo {
   width: 300px;
@@ -65,7 +69,7 @@ h2.section-title {
   bottom: 0;
 }
 .the-four-block .block.facebook {
-  left: 74px;
+  left: 100px;
   top: 140px;
   text-align: right;
 }
@@ -90,10 +94,6 @@ h2.section-title {
   text-align: left;
 }
 .other-block {
-    display: table-cell;
-    position: absolute;
-    right: 0;
-    vertical-align: top;
   color: #2d3033;
 }
 .other-block .inner {
