@@ -1,0 +1,13 @@
+body {
+    background: black;
+}
+
+.row {
+    padding: 30px;
+    margin: 0 20px;
+}
+
+#sfmoma {
+    width: 80%;
+    margin: auto;
+}
