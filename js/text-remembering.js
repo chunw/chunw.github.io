@@ -1,5 +1,5 @@
 function setup() {
-	frameRate(5);
+	frameRate(10);
 	createCanvas(windowWidth, windowHeight);
 	background(0, 0, 0);
 	fill(255,255,255);
