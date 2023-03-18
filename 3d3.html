@@ -1,0 +1,91 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="apple-touch-icon" href="icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <meta name="theme-color" content="#fafafa">
+
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Dosis:300,400);
+
+      html {
+            height: 100%;
+            background: black;
+        }
+
+        body {
+            height: 100%;
+        }
+
+
+        .overlay {
+            z-index: 99;
+            color: #b5b5b5;
+  display: block;
+  position: absolute;
+  bottom: 1em;
+  left:50%;
+  -webkit-transform: translate(-50%,-50%);
+}
+
+
+ a {
+  color: #fff;
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+  font-family: 'Dosis', sans-serif;
+}
+
+
+a.effect-shine:hover {
+  -webkit-mask-image: linear-gradient(-75deg, rgba(0,0,0,.6) 30%, #000 50%, rgba(0,0,0,.6) 70%);
+  -webkit-mask-size: 200%;
+  animation: shine 2s infinite;
+}
+
+@-webkit-keyframes shine {
+  from {
+    -webkit-mask-position: 150%;
+  }
+
+  to {
+    -webkit-mask-position: -50%;
+  }
+}
+    </style>
+</head>
+
+<body>
+<!-- Added Interactivity to 3d2.html -->
+
+
+<script src="js/vendor/modernizr-3.11.2.min.js"></script>
+<script src="js/plugins.js"></script>
+<script src="js/main.js"></script>
+<i class="overlay">
+    <div>
+      <a href="https://ossified-warbler-b0a.notion.site/Chun-Wang-Creative-Studio-b0d80affdee445e78f5650e9cfa74dec" class="effect-shine">Chun Wang</a>
+    </div>
+</i>
+
+<script type="module" src="https://unpkg.com/@splinetool/viewer@0.9.268/build/spline-viewer.js"></script>
+<spline-viewer style="height:100%" url="https://prod.spline.design/4K2Ku47vvwrpNCME/scene.splinecode"></spline-viewer>
+
+<!--<script src="https://www.google-analytics.com/analytics.js" async></script>-->
+</body>
+
+</html>
